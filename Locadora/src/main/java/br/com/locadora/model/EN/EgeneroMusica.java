@@ -1,4 +1,5 @@
 package br.com.locadora.model.EN;
 
-public class EgeneroMusica {
+public enum EgeneroMusica {
+    rap,funk,samba,trap,sertanejo
 }
