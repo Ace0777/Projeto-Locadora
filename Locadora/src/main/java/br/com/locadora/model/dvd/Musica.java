@@ -7,7 +7,7 @@ public class Musica extends Dvd{
 
     }
 
-    public Musica(String nome, Year dataLancamento) {
+    public Musica(String nome, int dataLancamento) {
         super(nome, dataLancamento);
     }
 }

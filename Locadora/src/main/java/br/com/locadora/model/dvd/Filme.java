@@ -8,7 +8,7 @@ public class Filme extends Dvd{
 
     }
 
-    public Filme(String nome, Year dataLancamento) {
+    public Filme(String nome, int dataLancamento) {
         super(nome, dataLancamento);
     }
 }

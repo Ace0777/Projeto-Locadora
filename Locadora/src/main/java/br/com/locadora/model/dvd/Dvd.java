@@ -4,13 +4,13 @@ import java.time.Year;
 
 public class Dvd {
     private String nome;
-    private Year dataLancamento;
+    private int dataLancamento;
 
     public Dvd(){
 
     }
 
-    public Dvd(String nome, Year dataLancamento) {
+    public Dvd(String nome, int dataLancamento) {
         this.nome = nome;
         this.dataLancamento = dataLancamento;
     }
@@ -23,11 +23,11 @@ public class Dvd {
         this.nome = nome;
     }
 
-    public Year getDataLancamento() {
+    public int getDataLancamento() {
         return dataLancamento;
     }
 
-    public void setDataLancamento(Year dataLancamento) {
+    public void setDataLancamento(int dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
 }
