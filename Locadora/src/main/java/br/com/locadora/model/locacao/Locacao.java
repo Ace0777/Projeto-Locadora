@@ -13,6 +13,8 @@ public class Locacao {
     private LocalDateTime entrada;
     private LocalDateTime saida;
 
+    // lembrar de usar duration between quando implementar metodos
+
     private Dvd dvd;
     private Filme filme;
     private Musica musica;
