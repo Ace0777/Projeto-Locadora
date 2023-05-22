@@ -3,16 +3,18 @@ package br.com.locadora.model.usuario;
 public class Usuario {
 
     private String nome, login, senha, email;
+    private int id;
 
     public Usuario(){
 
     }
 
-    public Usuario(String nome, String login, String senha, String email) {
+    public Usuario(String nome, String login, String senha, String email, int id) {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
         this.email = email;
+        this.id = id;
     }
 
     public String getNome() {
@@ -45,5 +47,13 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

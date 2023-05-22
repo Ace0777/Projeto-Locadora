@@ -1,32 +1,47 @@
 package br.com.locadora.model.usuario;
 
+import java.time.LocalDateTime;
+
 public class Funcionario extends Usuario {
 
-    private double salarioFixo, horasTrabalho;
+    private double salario;
+    private LocalDateTime entrada;
+    private LocalDateTime saida;
+    private int idLocadora;
 
     public Funcionario(){
 
     }
 
-    public Funcionario(String nome, String login, String senha, String email, double salarioFixo, double horasTrabalho) {
-        super(nome, login, senha, email);
-        this.salarioFixo = salarioFixo;
-        this.horasTrabalho = horasTrabalho;
+    public Funcionario(String nome, String login, String senha, String email, int id, double salario, LocalDateTime entrada, LocalDateTime saida, int idLocadora) {
+        super(nome, login, senha, email, id);
+        this.salario = salario;
+        this.entrada = entrada;
+        this.saida = saida;
+        this.idLocadora = idLocadora;
     }
 
-    public double getSalarioFixo() {
-        return salarioFixo;
+    public double getSalario() {
+        return salario;
     }
 
-    public void setSalarioFixo(double salarioFixo) {
-        this.salarioFixo = salarioFixo;
+    public void setSalario(double salario) {
+        this.salario = salario;
     }
 
-    public double getHorasTrabalho() {
-        return horasTrabalho;
+    public LocalDateTime getEntrada() {
+        return entrada;
     }
 
-    public void setHorasTrabalho(double horasTrabalho) {
-        this.horasTrabalho = horasTrabalho;
+    public void setEntrada(LocalDateTime entrada) {
+        this.entrada = entrada;
+    }
+
+    public LocalDateTime getSaida() {
+        return saida;
+    }
+
+    public void setSaida(LocalDateTime saida) {
+        this.saida = saida;
     }
 }

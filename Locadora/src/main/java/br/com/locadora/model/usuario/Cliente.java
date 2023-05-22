@@ -4,22 +4,33 @@ import java.time.LocalDate;
 
 public class Cliente extends Usuario {
 
-    private LocalDate dataNascimento;
+    private String documento;
+
+    private String telefone;
 
     public Cliente(){
 
     }
 
-    public Cliente(String nome, String login, String senha, String email, LocalDate dataNascimento) {
-        super(nome, login, senha, email);
-        this.dataNascimento = dataNascimento;
+    public Cliente(String nome, String login, String senha, String email, int id, String documento, String telefone) {
+        super(nome, login, senha, email, id);
+        this.documento = documento;
+        this.telefone = telefone;
     }
 
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
+    public String getDocumento() {
+        return documento;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }
