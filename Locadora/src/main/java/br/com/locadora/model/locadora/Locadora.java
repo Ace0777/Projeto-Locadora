@@ -1,17 +1,22 @@
 package br.com.locadora.model.locadora;
 
 import br.com.locadora.model.locacao.Locacao;
+import br.com.locadora.model.usuario.Cliente;
+import br.com.locadora.model.usuario.Funcionario;
 
 import java.util.ArrayList;
 
 public class Locadora {
     private ArrayList<Locacao> locacaos;
+    private ArrayList<Funcionario> funcionarios;
+    private ArrayList<Cliente> clientes;
 
     public Locadora(){
 
     }
-
-    public Locadora(ArrayList<Locacao> locacaos) {
+    public Locadora(ArrayList<Locacao> locacaos, ArrayList<Funcionario> funcionarios, ArrayList<Cliente> clientes) {
         this.locacaos = locacaos;
+        this.funcionarios = funcionarios;
+        this.clientes = clientes;
     }
 }
