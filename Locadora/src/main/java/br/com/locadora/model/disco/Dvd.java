@@ -1,6 +1,4 @@
-package br.com.locadora.model.dvd;
-
-import java.time.Year;
+package br.com.locadora.model.disco;
 
 public class Dvd {
     private String nome;

@@ -1,8 +1,6 @@
-package br.com.locadora.model.dvd;
+package br.com.locadora.model.disco;
 
 import br.com.locadora.model.EN.EgeneroMusica;
-
-import java.time.Year;
 
 public class Musica extends Dvd{
 

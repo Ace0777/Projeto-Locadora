@@ -1,69 +1,75 @@
 package br.com.locadora.model.locacao;
 
-import br.com.locadora.model.dvd.Dvd;
-import br.com.locadora.model.dvd.Filme;
-import br.com.locadora.model.dvd.Musica;
-
-import java.io.File;
 import java.time.LocalDateTime;
 
 public class Locacao {
+   private int id;
+    private int idDisco;
+    private int idFuncionario;
+    private int idCliente;
+   private LocalDateTime entrega;
+    private LocalDateTime locacao;
 
-    //ticket de locacao
-    private LocalDateTime entrada;
-    private LocalDateTime saida;
+    public Locacao(){
 
-    // lembrar de usar duration between quando implementar metodos
-
-    private Dvd dvd;
-    private Filme filme;
-    private Musica musica;
-
-    public Locacao(LocalDateTime entrada, LocalDateTime saida, Dvd dvd, Filme filme, Musica musica) {
-        this.entrada = entrada;
-        this.saida = saida;
-        this.dvd = dvd;
-        this.filme = filme;
-        this.musica = musica;
     }
 
-    public LocalDateTime getEntrada() {
-        return entrada;
+    public Locacao(int id, int idDisco, int idFuncionario, int idCliente, LocalDateTime entrega, LocalDateTime locacao) {
+        this.id = id;
+        this.idDisco = idDisco;
+        this.idFuncionario = idFuncionario;
+        this.idCliente = idCliente;
+        this.entrega = entrega;
+        this.locacao = locacao;
     }
 
-    public void setEntrada(LocalDateTime entrada) {
-        this.entrada = entrada;
+    public int getId() {
+        return id;
     }
 
-    public LocalDateTime getSaida() {
-        return saida;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setSaida(LocalDateTime saida) {
-        this.saida = saida;
+    public int getIdDisco() {
+        return idDisco;
     }
 
-    public Dvd getDvd() {
-        return dvd;
+    public void setIdDisco(int idDisco) {
+        this.idDisco = idDisco;
     }
 
-    public void setDvd(Dvd dvd) {
-        this.dvd = dvd;
+    public int getIdFuncionario() {
+        return idFuncionario;
     }
 
-    public Filme getFilme() {
-        return filme;
+    public void setIdFuncionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
 
-    public void setFilme(Filme filme) {
-        this.filme = filme;
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public Musica getMusica() {
-        return musica;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public void setMusica(Musica musica) {
-        this.musica = musica;
+    public LocalDateTime getEntrega() {
+        return entrega;
     }
+
+    public void setEntrega(LocalDateTime entrega) {
+        this.entrega = entrega;
+    }
+
+    public LocalDateTime getLocacao() {
+        return locacao;
+    }
+
+    public void setLocacao(LocalDateTime locacao) {
+        this.locacao = locacao;
+    }
+
+
 }
