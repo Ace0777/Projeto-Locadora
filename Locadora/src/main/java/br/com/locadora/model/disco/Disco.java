@@ -16,7 +16,7 @@ public class Disco {
 
     }
 
-    public Disco(String nome, int id, Double valorDaLocacao, LocalDateTime dataLancamento, ETipoDisco tipoDisco) {
+    public Disco( int id, String nome, Double valorDaLocacao, LocalDateTime dataLancamento, ETipoDisco tipoDisco) {
         this.nome = nome;
         this.id = id;
         this.valorDaLocacao = valorDaLocacao;

@@ -1,11 +1,14 @@
 package br.com.locadora.dao.imp;
 
+import br.com.locadora.model.EN.ETipoDisco;
 import br.com.locadora.model.disco.Disco;
 import br.com.locadora.util.connection.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DiscoDAO {
@@ -27,6 +30,37 @@ public class DiscoDAO {
 
             pst.execute();
         } finally {
+            c.close();
+        }
+    }
+
+    public Disco Buscar(Integer key) throws SQLException, ClassNotFoundException{
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco\n" +
+                    "FROM locadora.discos " +
+                    "WHERE id=?;\n";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setInt(1, key);
+
+            ResultSet resultado = pst.executeQuery();
+
+            Disco disco = null;
+
+            if (resultado.next()) {
+                disco = new Disco(resultado.getInt(1),
+                        resultado.getString(2),
+                        resultado.getDouble(3),
+                        LocalDateTime.parse(resultado.getString(4)),
+                        ETipoDisco.valueOf(resultado.getString(5))
+                );
+            }
+
+            return disco;
+
+        }finally {
             c.close();
         }
     }

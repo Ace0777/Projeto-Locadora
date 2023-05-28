@@ -1,0 +1,3 @@
+RESULT SET == O Resultset é uma classe da API JAVA que permite percorrermos um DataTable de alguma consulta em um banco de dados.
+Ao ser inicializado, o Resultset coloca seu cursor na primeira linha do DataTable,
+o método next() permite que o ponteiro seja direcionado para a próxima linha caso exista.
