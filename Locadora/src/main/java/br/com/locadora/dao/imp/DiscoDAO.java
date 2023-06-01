@@ -80,6 +80,31 @@ public class DiscoDAO {
             c.close();
         }
     }
+
+    public void alterar (Disco obj) throws SQLException, ClassNotFoundException{
+
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "UPDATE locadora.discos\n" +
+                    "SET nome='?', valorDaLocacao=?, dataLancamento=?, tipoDisco=?\n" +
+                    "WHERE id=?;\n";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+
+            pst.setString(1, obj.getNome());
+            pst.setDouble(2, obj.getValorDaLocacao());
+            pst.setString(3, obj.getDataLancamento().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            pst.setString(4, obj.getTipoDisco().toString());
+
+            pst.execute();
+        }finally {
+            c.close();
+        }
+    }
+
+
+    
 }
 
 
