@@ -64,4 +64,22 @@ public class DiscoDAO {
             c.close();
         }
     }
+
+    public void apagar(Disco obj) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "DELETE FROM locadora.discos\n" +
+                    "WHERE id=?;\n";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setInt(1,obj.getId());
+
+            pst.execute();
+        }finally {
+            c.close();
+        }
+    }
 }
+
+
