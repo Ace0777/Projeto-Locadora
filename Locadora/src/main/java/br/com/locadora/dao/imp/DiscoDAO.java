@@ -140,6 +140,8 @@ public class DiscoDAO {
             lista.add(ds);
         }
 
+
+
         return lista;
     }
 
@@ -148,7 +150,7 @@ public class DiscoDAO {
 
         try {
             String sql = "SELECT count(*) " +
-                    "FROM viacao.aviao ;";
+                    "FROM locadora.discos ;";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
@@ -156,6 +158,7 @@ public class DiscoDAO {
             // 5 - Preparar Objeto
 
             resultado.next();
+
             return resultado.getInt(1) ;
         }finally {
             c.close();
