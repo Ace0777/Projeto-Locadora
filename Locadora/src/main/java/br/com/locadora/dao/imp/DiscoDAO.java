@@ -1,15 +1,19 @@
 package br.com.locadora.dao.imp;
 
+import br.com.locadora.dao.IGenericDAO;
 import br.com.locadora.model.EN.ETipoDisco;
 import br.com.locadora.model.disco.Disco;
 import br.com.locadora.util.connection.ConnectionFactory;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+
+
 
 public class DiscoDAO {
 
@@ -17,9 +21,9 @@ public class DiscoDAO {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "INSERT INTO locadora.discos\n" +
-                    "(nome, valorDaLocacao, dataLancamento, tipoDisco)\n" +
-                    "VALUES(?, ?, ?, ?);\n";
+            String sql = "INSERT INTO locadora.discos" +
+                    "(nome, valorDaLocacao, dataLancamento, tipoDisco)" +
+                    "VALUES(?, ?, ?, ?);";
             PreparedStatement pst = c.prepareStatement(sql);
 
             pst.setString(1, obj.getNome());
@@ -34,13 +38,14 @@ public class DiscoDAO {
         }
     }
 
-    public Disco Buscar(Integer key) throws SQLException, ClassNotFoundException{
+    public Disco buscar(Integer key) throws SQLException, ClassNotFoundException{
+
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco\n" +
+            String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco " +
                     "FROM locadora.discos " +
-                    "WHERE id=?;\n";
+                    "WHERE id=?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setInt(1, key);
@@ -69,8 +74,8 @@ public class DiscoDAO {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "DELETE FROM locadora.discos\n" +
-                    "WHERE id=?;\n";
+            String sql = "DELETE FROM locadora.discos " +
+                    "WHERE id=?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setInt(1,obj.getId());
@@ -86,9 +91,9 @@ public class DiscoDAO {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "UPDATE locadora.discos\n" +
-                    "SET nome='?', valorDaLocacao=?, dataLancamento=?, tipoDisco=?\n" +
-                    "WHERE id=?;\n";
+            String sql = "UPDATE locadora.discos " +
+                    "SET nome='?', valorDaLocacao=?, dataLancamento=?, tipoDisco=?" +
+                    "WHERE id=?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
@@ -103,8 +108,60 @@ public class DiscoDAO {
         }
     }
 
+    public ArrayList<Disco> buscarTodosOsDiscos() throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnectionMysql();
 
-    
+        try {
+            String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco " +
+            "FROM locadora.discos;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+
+            ResultSet resultado = pst.executeQuery();
+
+            return getRegistroToDiscos(resultado);
+        }finally {
+            c.close();
+        }
+    }
+
+
+    private static ArrayList<Disco> getRegistroToDiscos(ResultSet resultado) throws SQLException {
+
+        ArrayList<Disco> lista = new ArrayList<>();
+
+        while (resultado.next()){
+            Disco ds = new Disco(resultado.getInt(1),
+                    resultado.getString(2),
+                    resultado.getDouble(3),
+                    LocalDateTime.parse(resultado.getString(4)),
+                    ETipoDisco.valueOf(resultado.getString(5))
+            );
+            lista.add(ds);
+        }
+
+        return lista;
+    }
+
+    public int quantidade() throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT count(*) " +
+                    "FROM viacao.aviao ;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+
+            ResultSet resultado = pst.executeQuery();
+            // 5 - Preparar Objeto
+
+            resultado.next();
+            return resultado.getInt(1) ;
+        }finally {
+            c.close();
+        }
+    }
+
 }
 
 

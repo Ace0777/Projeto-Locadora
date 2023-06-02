@@ -3,7 +3,7 @@ package br.com.locadora.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface IgenericDAO <C, K> {
+public interface IGenericDAO <C, K> {
     public void inserir(C obj) throws SQLException, ClassNotFoundException;
     public void alterar(C obj) throws SQLException, ClassNotFoundException;
     public void apagar(C obj) throws SQLException, ClassNotFoundException;
