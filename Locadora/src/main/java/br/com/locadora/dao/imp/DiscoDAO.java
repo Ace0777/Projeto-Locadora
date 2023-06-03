@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
-public class DiscoDAO {
+public class DiscoDAO implements IGenericDAO<Disco,Integer> {
 
     public void inserir(Disco obj) throws SQLException, ClassNotFoundException{
         Connection c = ConnectionFactory.getConnectionMysql();
@@ -105,7 +105,7 @@ public class DiscoDAO {
         }
     }
 
-    public ArrayList<Disco> buscarTodosOsDiscos() throws SQLException, ClassNotFoundException {
+    public ArrayList<Disco> buscarTodos() throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
