@@ -132,8 +132,8 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
                     resultado.getString(2),
                     resultado.getDouble(3),
                     LocalDateTime.parse(resultado.getString(4)),
-                    ETipoDisco.valueOf(resultado.getString(5))
-            );
+                    ETipoDisco.valueOf(resultado.getString(5)));
+
             lista.add(ds);
         }
 
@@ -143,6 +143,7 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
     }
 
     public int quantidade() throws SQLException, ClassNotFoundException {
+
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
@@ -152,7 +153,6 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
             PreparedStatement pst = c.prepareStatement(sql);
 
             ResultSet resultado = pst.executeQuery();
-            // 5 - Preparar Objeto
 
             resultado.next();
 
