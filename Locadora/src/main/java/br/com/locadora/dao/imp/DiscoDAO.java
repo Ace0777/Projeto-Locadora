@@ -89,7 +89,7 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
 
         try {
             String sql = "UPDATE locadora.discos " +
-                    "SET nome='?', valorDaLocacao=?, dataLancamento=?, tipoDisco=?" +
+                    "SET nome=?, valorDaLocacao=?, dataLancamento=?, tipoDisco=?" +
                     "WHERE id=?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
