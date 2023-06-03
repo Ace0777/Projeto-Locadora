@@ -1,5 +1,4 @@
 package br.com.locadora.dao.imp;
-
 import br.com.locadora.dao.IGenericDAO;
 import br.com.locadora.model.EN.ETipoDisco;
 import br.com.locadora.model.disco.Disco;
@@ -11,8 +10,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
-
 
 
 public class DiscoDAO {
