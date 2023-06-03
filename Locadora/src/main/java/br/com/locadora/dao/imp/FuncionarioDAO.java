@@ -18,13 +18,13 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
         try {
             String sql = "INSERT INTO locadora.funcionarios\n" +
-                    "(idUsuario, entrada, saida, salario, idLocadora)\n" +
-                    "VALUES(, '?', '?', ?, );\n; ";
+                    "(entrada, saida, salario)\n" +
+                    "VALUES(?, ?, ? );\n; ";
             PreparedStatement pst = c.prepareStatement(sql);
 
-            pst.setString(2,obj.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
-            pst.setString(3,obj.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss ")));
-            pst.setDouble(4,obj.getSalario());
+            pst.setString(1,obj.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
+            pst.setString(2,obj.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss ")));
+            pst.setDouble(3,obj.getSalario());
 
             pst.execute();
         } finally {

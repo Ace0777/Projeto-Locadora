@@ -61,7 +61,7 @@ public class UsuarioDAO implements IGenericDAO<Usuario, Integer> {
             c.close();
         }
     }
-    
+
     @Override
     public void apagar(Usuario obj) throws SQLException, ClassNotFoundException {
 
