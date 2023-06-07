@@ -1,5 +1,6 @@
 package br.com.locadora.model.locadora;
 
+import br.com.locadora.model.disco.Disco;
 import br.com.locadora.model.locacao.Locacao;
 import br.com.locadora.model.usuario.Cliente;
 import br.com.locadora.model.usuario.Funcionario;
@@ -13,6 +14,12 @@ public class Locadora {
    private String nome;
 
    private String endereco;
+
+   private ArrayList<Cliente> clientes;
+
+   private ArrayList<Funcionario> funcionarios;
+
+   private ArrayList<Disco> discos;
 
     public Locadora(){
 

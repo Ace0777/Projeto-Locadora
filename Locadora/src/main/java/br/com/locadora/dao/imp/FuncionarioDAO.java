@@ -84,9 +84,9 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "SELECT u.*, f.*, l.*  " +
-                    "FROM funcionarios f" +
-                    "INNER JOIN locadoras l on f.idLocadora = l.id" +
+            String sql = "SELECT f.*, l.*  " +
+                    "FROM funcionarios f  " +
+                    "INNER JOIN locadoras l on f.idLocadora = l.id  " +
                     "WHERE id = ?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
@@ -96,16 +96,46 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
             Funcionario funcionario = null;
 
+
             if (resultado.next()) {
-                funcionario =
+                funcionario = new Funcionario(resultado.getString(1),
+                        resultado.getString(2),
+                        resultado.getString(3),
+                        resultado.getString(4), resultado.getInt(5),
+                        resultado.getDouble(6),
+                        LocalDateTime.parse(resultado.getString(7),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+                        LocalDateTime.parse(resultado.getString(8), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+                new Locadora(resultado.getInt(9),
+                        resultado.getString(10),
+                        resultado.getString(11)));
             }
+
+            return funcionario;
+        }finally {
+            c.close();
         }
 
     }
 
     @Override
     public ArrayList<Funcionario> buscarTodos() throws SQLException, ClassNotFoundException {
-        return null;
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT f.*, l.*  " +
+                    "FROM funcionarios f  " +
+                    "INNER JOIN locadoras l on f.idLocadora = l.id  " +
+                    "WHERE id = ?;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+
+            ResultSet resultado = pst.executeQuery();
+
+            return getRegistroToFuncionario(resultado);
+
+        }finally {
+            c.close();
+        }
     }
 
 
