@@ -55,6 +55,7 @@ public class UsuarioDAO implements IGenericDAO<Usuario, Integer> {
             pst.setString(2, obj.getLogin());
             pst.setString(3, obj.getSenha());
             pst.setString(4, obj.getEmail());
+            pst.setInt(5,obj.getId());
 
             pst.execute();
         }finally {

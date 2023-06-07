@@ -47,6 +47,7 @@ public class LocadoraDAO implements IGenericDAO<Locadora, Integer> {
 
             pst.setString(1, obj.getEndereco());
             pst.setString(2, obj.getNome());
+            pst.setInt(3,obj.getId());
 
             pst.execute();
         }finally {

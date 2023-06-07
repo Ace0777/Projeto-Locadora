@@ -98,6 +98,7 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
             pst.setDouble(2, obj.getValorDaLocacao());
             pst.setString(3, obj.getDataLancamento().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             pst.setString(4, obj.getTipoDisco().toString());
+            pst.setInt(5,obj.getId());
 
             pst.execute();
         }finally {

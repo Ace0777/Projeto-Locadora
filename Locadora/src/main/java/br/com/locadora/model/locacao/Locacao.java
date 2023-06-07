@@ -1,12 +1,16 @@
 package br.com.locadora.model.locacao;
 
+import br.com.locadora.model.disco.Disco;
+import br.com.locadora.model.usuario.Cliente;
+import br.com.locadora.model.usuario.Funcionario;
+
 import java.time.LocalDateTime;
 
 public class Locacao {
    private int id;
-    private int idDisco;
-    private int idFuncionario;
-    private int idCliente;
+    private Disco disco;
+    private Funcionario funcionario;
+    private Cliente cliente;
    private LocalDateTime entrega;
     private LocalDateTime locacao;
 
@@ -14,11 +18,11 @@ public class Locacao {
 
     }
 
-    public Locacao(int id, int idDisco, int idFuncionario, int idCliente, LocalDateTime entrega, LocalDateTime locacao) {
+    public Locacao(int id, Disco disco, Funcionario funcionario, Cliente cliente, LocalDateTime entrega, LocalDateTime locacao) {
         this.id = id;
-        this.idDisco = idDisco;
-        this.idFuncionario = idFuncionario;
-        this.idCliente = idCliente;
+        this.disco = disco;
+        this.funcionario = funcionario;
+        this.cliente = cliente;
         this.entrega = entrega;
         this.locacao = locacao;
     }
@@ -31,28 +35,28 @@ public class Locacao {
         this.id = id;
     }
 
-    public int getIdDisco() {
-        return idDisco;
+    public Disco getDisco() {
+        return disco;
     }
 
-    public void setIdDisco(int idDisco) {
-        this.idDisco = idDisco;
+    public void setDisco(Disco disco) {
+        this.disco = disco;
     }
 
-    public int getIdFuncionario() {
-        return idFuncionario;
+    public Funcionario getFuncionario() {
+        return funcionario;
     }
 
-    public void setIdFuncionario(int idFuncionario) {
-        this.idFuncionario = idFuncionario;
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public LocalDateTime getEntrega() {

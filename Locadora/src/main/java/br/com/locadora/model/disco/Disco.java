@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class Disco {
     private String nome;
     private int id;
-        private Double valorDaLocacao;
+    private Double valorDaLocacao;
     private LocalDateTime dataLancamento;
 
     private ETipoDisco tipoDisco;
