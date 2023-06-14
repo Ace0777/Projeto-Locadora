@@ -18,14 +18,18 @@ public class Locacao {
 
     }
 
-    public Locacao(int id, Disco disco, Funcionario funcionario, Cliente cliente, LocalDateTime entrega, LocalDateTime locacao) {
+    public Locacao(int id, LocalDateTime entrega, LocalDateTime locacao, Disco disco, Funcionario funcionario, Cliente cliente) {
         this.id = id;
+        this.entrega = entrega;
+        this.locacao = locacao;
         this.disco = disco;
         this.funcionario = funcionario;
         this.cliente = cliente;
-        this.entrega = entrega;
-        this.locacao = locacao;
+
     }
+
+
+
 
     public int getId() {
         return id;
@@ -74,6 +78,4 @@ public class Locacao {
     public void setLocacao(LocalDateTime locacao) {
         this.locacao = locacao;
     }
-
-
 }

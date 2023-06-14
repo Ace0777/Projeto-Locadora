@@ -21,9 +21,9 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "INSERT INTO locadora.funcionarios\n" +
-                    "(entrada, saida, salario, idLocadora)\n" +
-                    "VALUES(?, ?, ?, ?, ?);\n ";
+            String sql = "INSERT INTO locadora.funcionarios " +
+                    "(entrada, saida, salario, idLocadora) " +
+                    "VALUES(?, ?, ?, ?, ?);  ";
             PreparedStatement pst = c.prepareStatement(sql);
 
             pst.setString(1,obj.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
@@ -101,7 +101,8 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
                 funcionario = new Funcionario(resultado.getString(1),
                         resultado.getString(2),
                         resultado.getString(3),
-                        resultado.getString(4), resultado.getInt(5),
+                        resultado.getString(4),
+                        resultado.getInt(5),
                         resultado.getDouble(6),
                         LocalDateTime.parse(resultado.getString(7),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
                         LocalDateTime.parse(resultado.getString(8), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
@@ -144,7 +145,7 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
         ArrayList<Funcionario> lista = new ArrayList<>();
 
         while (resultado.next()){
-            Funcionario av = new Funcionario(resultado.getString(1),
+            Funcionario fr = new Funcionario(resultado.getString(1),
                     resultado.getString(2),
                     resultado.getString(3),
                     resultado.getString(4),
@@ -154,9 +155,9 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
                     LocalDateTime.parse(resultado.getString(8), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
                     new Locadora(resultado.getInt(9),
                     resultado.getString(10),
-                    resultado.getString(11))
-            );
-            lista.add(av);
+                    resultado.getString(11)));
+
+            lista.add(fr);
         }
 
         return lista;
@@ -164,6 +165,44 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
     @Override
     public int quantidade() throws SQLException, ClassNotFoundException {
-        return 0;
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT count(*) \n" +
+                    "FROM locadora.funcionarios ;\n";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+
+            ResultSet resultado = pst.executeQuery();
+
+            resultado.next();
+
+            return resultado.getInt(1) ;
+        }finally {
+            c.close();
+        }
+
+    }
+
+    public ArrayList<Funcionario> buscarPorLocadora(Integer key) throws SQLException, ClassNotFoundException {
+
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT id, entrada, saida, salario, idLocadora " +
+                    "FROM locadora.funcionarios " +
+                    "WHERE idLocadora = ?";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+
+            pst.setInt(1,key);
+
+            ResultSet resultado = pst.executeQuery();
+
+            return getRegistroToFuncionario(resultado);
+
+        }finally {
+            c.close();
+        }
     }
 }

@@ -2,9 +2,9 @@ package br.com.locadora.dao.imp;
 
 import br.com.locadora.dao.IGenericDAO;
 import br.com.locadora.model.locadora.Locadora;
-import br.com.locadora.model.usuario.Usuario;
 import br.com.locadora.util.connection.ConnectionFactory;
 
+import java.security.Key;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,7 +81,7 @@ public class LocadoraDAO implements IGenericDAO<Locadora, Integer> {
 
         try {
             String sql = "SELECT id, endereco, nome " +
-                    "FROM locadora.locadoras;  " +
+                    "FROM locadora.locadoras  " +
                     "WHERE id = ?; ";
 
             PreparedStatement pst = c.prepareStatement(sql);
@@ -96,6 +96,12 @@ public class LocadoraDAO implements IGenericDAO<Locadora, Integer> {
                 locadora = new Locadora(resultado.getInt(1),
                         resultado.getString(2),
                         resultado.getString(3));
+
+
+                locadora.setDiscos(new DiscoDAO().buscarPorLocadora(key));
+                locadora.setClientes(new ClienteDAO().buscarPorLocadora(key));
+                locadora.setFuncionarios(new FuncionarioDAO().buscarPorLocadora(key));
+                locadora.setLocacaos(new LocacaoDAO().buscarPorLocadora(key));
             }
 
             return locadora;
@@ -134,11 +140,12 @@ public class LocadoraDAO implements IGenericDAO<Locadora, Integer> {
                     resultado.getString(2),
                     resultado.getString(3));
 
-
             lista.add(ls);
         }
         return lista;
     }
+
+    
 
     @Override
     public int quantidade() throws SQLException, ClassNotFoundException {
