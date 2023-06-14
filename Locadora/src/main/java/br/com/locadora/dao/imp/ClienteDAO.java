@@ -2,6 +2,7 @@ package br.com.locadora.dao.imp;
 
 import br.com.locadora.dao.IGenericDAO;
 import br.com.locadora.model.disco.Disco;
+import br.com.locadora.model.locadora.Locadora;
 import br.com.locadora.model.usuario.Cliente;
 import br.com.locadora.model.usuario.Funcionario;
 import br.com.locadora.util.connection.ConnectionFactory;
@@ -19,13 +20,14 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
 
         try {
             String sql = "INSERT INTO locadora.clientes " +
-                    "(documento, telefone) " +
-                    "VALUES(? , ?);";
+                    "(documento, telefone, idLocadora) " +
+                    "VALUES(?, ?, ?); ";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
             pst.setString(1, obj.getDocumento());
             pst.setString(2,obj.getTelefone());
+            pst.setInt(3, obj.getLocadora().getId());
 
             pst.execute();
         } finally {
@@ -78,9 +80,10 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "SELECT id, documento, telefone " +
-                    "FROM locadora.clientes " +
-                    "WHERE id = ?";
+            String sql = "SELECT c.*, l.*" +
+                    "FROM clientes c " +
+                    "INNER JOIN locadora.locadoras l on c.idDisco = l.id " +
+                    "WHERE id = ?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
@@ -90,6 +93,8 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
 
             Cliente cliente = null;
 
+            Locadora locadora;
+
             if (resultado.next()) {
                cliente = new Cliente(resultado.getString(1),
                         resultado.getString(2),
@@ -97,7 +102,11 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
                         resultado.getString(4),
                         resultado.getInt(5),
                         resultado.getString(6),
-                        resultado.getString(7));
+                        resultado.getString(7),
+
+              locadora = new Locadora(resultado.getInt(8),
+               resultado.getString(9),resultado.getString(10)));
+
             }
 
             return cliente;
@@ -130,13 +139,18 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
         ArrayList<Cliente> lista = new ArrayList<>();
 
         while (resultado.next()){
+            Locadora locadora;
+            
             Cliente cl = new Cliente(resultado.getString(1),
                     resultado.getString(2),
                     resultado.getString(3),
                     resultado.getString(4),
                     resultado.getInt(5),
                     resultado.getString(6),
-                    resultado.getString(7));
+                    resultado.getString(7),
+
+                    locadora = new Locadora(resultado.getInt(8),
+                    resultado.getString(9),resultado.getString(10)));
 
             lista.add(cl);
         }

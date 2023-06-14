@@ -1,5 +1,7 @@
 package br.com.locadora.model.usuario;
 
+import br.com.locadora.model.locadora.Locadora;
+
 import java.time.LocalDate;
 
 public class Cliente extends Usuario {
@@ -8,14 +10,25 @@ public class Cliente extends Usuario {
 
     private String telefone;
 
+    private Locadora locadora;
+
     public Cliente(){
 
     }
 
-    public Cliente(String nome, String login, String senha, String email, int id, String documento, String telefone) {
+    public Cliente(String nome, String login, String senha, String email, int id, String documento, String telefone, Locadora locadora) {
         super(nome, login, senha, email, id);
         this.documento = documento;
         this.telefone = telefone;
+        this.locadora = locadora;
+    }
+
+    public Locadora getLocadora() {
+        return locadora;
+    }
+
+    public void setLocadora(Locadora locadora) {
+        this.locadora = locadora;
     }
 
     public String getDocumento() {

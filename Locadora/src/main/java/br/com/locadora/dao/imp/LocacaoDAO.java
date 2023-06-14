@@ -126,7 +126,7 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
                         resultado.getString(23),
                         resultado.getInt(24),
                         resultado.getString(25),
-                        resultado.getString(26));
+                        resultado.getString(26),null);
 
                 Locadora locadora = new Locadora(resultado.getInt(27),
                         resultado.getString(28),resultado.getString(29));
@@ -193,7 +193,7 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
                     resultado.getString(23),
                     resultado.getInt(24),
                     resultado.getString(25),
-                    resultado.getString(26));
+                    resultado.getString(26),null);
 
             Locadora locadora = new Locadora(resultado.getInt(27),
                     resultado.getString(28),resultado.getString(29));
