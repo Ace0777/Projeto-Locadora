@@ -145,7 +145,7 @@ public class LocadoraDAO implements IGenericDAO<Locadora, Integer> {
         return lista;
     }
 
-    
+
 
     @Override
     public int quantidade() throws SQLException, ClassNotFoundException {

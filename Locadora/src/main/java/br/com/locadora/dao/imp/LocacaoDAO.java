@@ -24,8 +24,8 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
 
         try {
             String sql = "INSERT INTO locadora.locacaos " +
-                    "(idDisco, idFuncionario, idCliente, entrega, locacao) " +
-                    "VALUES(?, ?, ?, ?, ?); ";
+                    "(idDisco, idFuncionario, idCliente, entrega, locacao, idLocadora) " +
+                    "VALUES(?, ?, ?, ?, ?, ?); ";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
@@ -34,6 +34,7 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
             pst.setInt(3, obj.getCliente().getId());
             pst.setString(4, obj.getEntrega().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss ")));
             pst.setString(5, obj.getLocacao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss ")));
+            pst.setInt(6, obj.getLocadora().getId());
 
             pst.execute();
         } finally {
@@ -127,8 +128,11 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
                         resultado.getString(25),
                         resultado.getString(26));
 
-               locacao = new Locacao(resultado.getInt(1),LocalDateTime.parse(resultado.getString(2),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                       LocalDateTime.parse(resultado.getString(3),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),disco,funcionario,cliente);
+                Locadora locadora = new Locadora(resultado.getInt(27),
+                        resultado.getString(28),resultado.getString(29));
+
+                locacao = new Locacao(resultado.getInt(1),LocalDateTime.parse(resultado.getString(2),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+                        LocalDateTime.parse(resultado.getString(3),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),disco,funcionario,cliente,locadora);
 
             }
 
@@ -191,8 +195,11 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
                     resultado.getString(25),
                     resultado.getString(26));
 
+            Locadora locadora = new Locadora(resultado.getInt(27),
+                    resultado.getString(28),resultado.getString(29));
+
            Locacao locacao = new Locacao(resultado.getInt(1),LocalDateTime.parse(resultado.getString(2),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                    LocalDateTime.parse(resultado.getString(3),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),disco,funcionario,cliente);
+                    LocalDateTime.parse(resultado.getString(3),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),disco,funcionario,cliente,locadora);
 
            lista.add(locacao);
         }

@@ -1,6 +1,7 @@
 package br.com.locadora.model.locacao;
 
 import br.com.locadora.model.disco.Disco;
+import br.com.locadora.model.locadora.Locadora;
 import br.com.locadora.model.usuario.Cliente;
 import br.com.locadora.model.usuario.Funcionario;
 
@@ -14,18 +15,20 @@ public class Locacao {
    private LocalDateTime entrega;
     private LocalDateTime locacao;
 
+    private Locadora locadora;
+
     public Locacao(){
 
     }
 
-    public Locacao(int id, LocalDateTime entrega, LocalDateTime locacao, Disco disco, Funcionario funcionario, Cliente cliente) {
+    public Locacao(int id, LocalDateTime entrega, LocalDateTime locacao, Disco disco, Funcionario funcionario, Cliente cliente, Locadora locadora) {
         this.id = id;
         this.entrega = entrega;
         this.locacao = locacao;
         this.disco = disco;
         this.funcionario = funcionario;
         this.cliente = cliente;
-
+        this.locadora = locadora;
     }
 
 
@@ -77,5 +80,13 @@ public class Locacao {
 
     public void setLocacao(LocalDateTime locacao) {
         this.locacao = locacao;
+    }
+
+    public Locadora getLocadora() {
+        return locadora;
+    }
+
+    public void setLocadora(Locadora locadora) {
+        this.locadora = locadora;
     }
 }
