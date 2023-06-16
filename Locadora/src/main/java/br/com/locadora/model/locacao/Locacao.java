@@ -14,7 +14,6 @@ public class Locacao {
     private Cliente cliente;
    private LocalDateTime entrega;
     private LocalDateTime locacao;
-
     private Locadora locadora;
 
     public Locacao(){

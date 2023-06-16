@@ -7,5 +7,4 @@ public interface TaxaDisco {
 
  public double TaxaTipoDisco();
 
-
 }

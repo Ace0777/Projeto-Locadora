@@ -140,7 +140,7 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
 
         while (resultado.next()){
             Locadora locadora;
-            
+
             Cliente cl = new Cliente(resultado.getString(1),
                     resultado.getString(2),
                     resultado.getString(3),
@@ -186,7 +186,7 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
         try {
             String sql = "SELECT id, documento, telefone  " +
                     "FROM cliente.discos " +
-                    "WHERE idLocaodra = ?";
+                    "WHERE idLocaodra = ?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
 

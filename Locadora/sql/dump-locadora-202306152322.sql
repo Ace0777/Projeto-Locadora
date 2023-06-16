@@ -24,12 +24,12 @@ DROP TABLE IF EXISTS `clientes`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clientes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `idUsuario` int NOT NULL,
   `documento` varchar(100) NOT NULL,
   `telefone` varchar(100) NOT NULL,
+  `idLocadora` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `clientes_FK` (`idUsuario`),
-  CONSTRAINT `clientes_FK` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`)
+  KEY `clientes_FK` (`idLocadora`),
+  CONSTRAINT `clientes_FK` FOREIGN KEY (`idLocadora`) REFERENCES `locadoras` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -54,9 +54,12 @@ CREATE TABLE `discos` (
   `nome` varchar(100) NOT NULL,
   `valorDaLocacao` double DEFAULT NULL,
   `dataLancamento` datetime DEFAULT NULL,
-  `tipoDisco` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `tipoDisco` enum('filme','musica','jogo') NOT NULL,
+  `idLocadora` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `discos_FK` (`idLocadora`),
+  CONSTRAINT `discos_FK` FOREIGN KEY (`idLocadora`) REFERENCES `locadoras` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,16 +80,13 @@ DROP TABLE IF EXISTS `funcionarios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `funcionarios` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `idUsuario` int NOT NULL,
   `entrada` datetime NOT NULL,
   `saida` datetime NOT NULL,
   `salario` double NOT NULL,
   `idLocadora` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `funcionarios_FK` (`idLocadora`),
-  KEY `funcionarios_FK_1` (`idUsuario`),
-  CONSTRAINT `funcionarios_FK` FOREIGN KEY (`idLocadora`) REFERENCES `locadoras` (`id`),
-  CONSTRAINT `funcionarios_FK_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`)
+  CONSTRAINT `funcionarios_FK` FOREIGN KEY (`idLocadora`) REFERENCES `locadoras` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -113,13 +113,16 @@ CREATE TABLE `locacaos` (
   `idCliente` int NOT NULL,
   `entrega` datetime NOT NULL,
   `locacao` datetime NOT NULL,
+  `idLocadora` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `locacaos_FK` (`idCliente`),
   KEY `locacaos_FK_1` (`idDisco`),
   KEY `locacaos_FK_2` (`idFuncionario`),
+  KEY `locacaos_FK_3` (`idLocadora`),
   CONSTRAINT `locacaos_FK` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`id`),
   CONSTRAINT `locacaos_FK_1` FOREIGN KEY (`idDisco`) REFERENCES `discos` (`id`),
-  CONSTRAINT `locacaos_FK_2` FOREIGN KEY (`idFuncionario`) REFERENCES `funcionarios` (`id`)
+  CONSTRAINT `locacaos_FK_2` FOREIGN KEY (`idFuncionario`) REFERENCES `funcionarios` (`id`),
+  CONSTRAINT `locacaos_FK_3` FOREIGN KEY (`idLocadora`) REFERENCES `locadoras` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -157,32 +160,6 @@ LOCK TABLES `locadoras` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `usuarios`
---
-
-DROP TABLE IF EXISTS `usuarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuarios` (
-  `nome` varchar(100) NOT NULL,
-  `login` varchar(100) NOT NULL,
-  `senha` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `id` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usuarios`
---
-
-LOCK TABLES `usuarios` WRITE;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping routines for database 'locadora'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -195,4 +172,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-25 19:04:21
+-- Dump completed on 2023-06-15 23:22:57
