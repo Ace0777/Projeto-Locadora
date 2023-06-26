@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -70,7 +71,7 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 28, Short.MAX_VALUE)
+                .addGap(0, 9, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 895, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -265,19 +266,21 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
 
     private void jtfSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSeActionPerformed
         //pesquisar 
+        
+    
       
     }//GEN-LAST:event_jtfSeActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
                    
         try {
+            
             ArrayList<Funcionario> allFunc = new FuncionarioDAO().buscarTodos();
          
             preencheTable(allFunc);
-        } catch (SQLException ex) {
-            Logger.getLogger(ViewCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ViewCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Não foi possivel Buscar os funcionarios");
         }
                               
     }//GEN-LAST:event_formWindowOpened
@@ -351,7 +354,7 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
         }
         
         for(Funcionario f : allFunc){
-            String[] linha = {f.getId()+"",f.getNome(),f.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+            String[] linha = {f.getId()+"",f.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
                 f.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))};
             
              dftm.addRow(linha);

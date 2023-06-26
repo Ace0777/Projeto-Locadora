@@ -123,6 +123,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem3.setText("Cliente");
         jmCadastro.add(jMenuItem3);
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem4.setText("Disco");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,14 +186,14 @@ public class Principal extends javax.swing.JFrame {
         ViewCadastroFuncionario fun = new ViewCadastroFuncionario(this, true);
         
         fun.setVisible(true);
-        
-        
-        
-        
+  
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+       ViewCadastroDisco dis = new ViewCadastroDisco(this, true);
+        
+        dis.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

@@ -23,6 +23,7 @@ public class Funcionario extends Usuario {
         this.locadora = locadora;
     }
 
+
     public double getSalario() {
         return salario;
     }

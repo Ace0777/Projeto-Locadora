@@ -27,9 +27,13 @@ public class Locadora {
 
     }
 
-    public Locadora(int id, String nome, 
-                    String endereco, 
-                    ArrayList<Cliente> clientes, ArrayList<Funcionario> funcionarios, 
+    public Locadora(int id) {
+        this.id = id;
+    }
+
+    public Locadora(int id, String nome,
+                    String endereco,
+                    ArrayList<Cliente> clientes, ArrayList<Funcionario> funcionarios,
                     ArrayList<Disco> discos, ArrayList<Locacao> locacaos) {
         this.id = id;
         this.nome = nome;
