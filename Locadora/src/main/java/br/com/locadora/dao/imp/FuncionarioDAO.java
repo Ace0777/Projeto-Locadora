@@ -118,6 +118,29 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
     }
 
+    public ArrayList<Funcionario> buscarPorNome(String key) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT f.*, l.*  " +
+                    "FROM funcionarios f  " +
+                    "INNER JOIN locadoras l on f.idLocadora = l.id  " +
+                    "WHERE nome = ?;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, "%" + key + "%");
+
+            ResultSet resultado = pst.executeQuery();
+
+            return getRegistroToFuncionario(resultado);
+
+        }finally {
+            c.close();
+        }
+    }
+
+
+
     @Override
     public ArrayList<Funcionario> buscarTodos() throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnectionMysql();

@@ -11,7 +11,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,8 +41,8 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jtfSearch2 = new javax.swing.JTextField();
-        jtfSearch = new javax.swing.JButton();
+        jtfSearch = new javax.swing.JTextField();
+        jtfSe = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -88,16 +87,16 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
         jLabel2.setForeground(new java.awt.Color(204, 0, 0));
         jLabel2.setText("Nome");
 
-        jtfSearch2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfSearch2ActionPerformed(evt);
-            }
-        });
-
-        jtfSearch.setText("Pesquisar");
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfSearchActionPerformed(evt);
+            }
+        });
+
+        jtfSe.setText("Pesquisar");
+        jtfSe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfSeActionPerformed(evt);
             }
         });
 
@@ -108,12 +107,12 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtfSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jtfSearch)
+                .addComponent(jtfSe)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -122,9 +121,9 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtfSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jtfSearch)
+                .addComponent(jtfSe)
                 .addContainerGap())
         );
 
@@ -192,17 +191,14 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
         jtFuncionario.setForeground(new java.awt.Color(255, 255, 255));
         jtFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "#", "Nome", "Entrada", "Saida", "Salario"
+                "#", "Nome", "Entrada", "Saida"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -263,39 +259,27 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jtfSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearch2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfSearch2ActionPerformed
-
     private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
-        //pesquisar 
-        try {
-            //tela aberta
-            
-            ArrayList<Funcionario> allFunc = new FuncionarioDAO().buscar(jtfSearch.getText());
-         
-            preencheTable(allFunc);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "não foi possivel buscar os funcioanrios");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ViewCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_jtfSearchActionPerformed
 
+    private void jtfSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSeActionPerformed
+        //pesquisar 
+      
+    }//GEN-LAST:event_jtfSeActionPerformed
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       
+                   
         try {
-            //tela aberta
-            
             ArrayList<Funcionario> allFunc = new FuncionarioDAO().buscarTodos();
          
             preencheTable(allFunc);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "não foi possivel buscar os funcioanrios");
+            Logger.getLogger(ViewCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ViewCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+                              
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -353,24 +337,24 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtFuncionario;
-    private javax.swing.JButton jtfSearch;
-    private javax.swing.JTextField jtfSearch2;
+    private javax.swing.JButton jtfSe;
+    private javax.swing.JTextField jtfSearch;
     // End of variables declaration//GEN-END:variables
 
     private void preencheTable(ArrayList<Funcionario> allFunc) {
-        
+       
         DefaultTableModel dftm = (DefaultTableModel) jtFuncionario.getModel();
         
+        
         while(dftm.getRowCount() > 0){
-            
             dftm.removeRow(0);
         }
         
-        
         for(Funcionario f : allFunc){
-            String [] linha = {f.getId()+"",f.getNome(),f.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))
-                    ,f.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))};
-            dftm.addRow(linha);
+            String[] linha = {f.getId()+"",f.getNome(),f.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+                f.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))};
+            
+             dftm.addRow(linha);
         }
         
     }
