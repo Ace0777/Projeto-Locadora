@@ -32,4 +32,29 @@ class DiscoDAOTest {
             throw new RuntimeException(e);
         }
     }
+    @org.junit.jupiter.api.Test
+    void buscarPorNome() {
+        try {
+            var resultdo = dao.buscarPorNome("luis");
+            System.out.println(resultdo);
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @org.junit.jupiter.api.Test
+
+    void quantidade() {
+        try {
+            var resultdo = dao.quantidade();
+            System.out.println(resultdo);
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
 }

@@ -4,11 +4,11 @@ import br.com.locadora.model.EN.ETipoDisco;
 import br.com.locadora.model.disco.Disco;
 import br.com.locadora.model.locadora.Locadora;
 import br.com.locadora.util.connection.ConnectionFactory;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -20,15 +20,14 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
 
         try {
             String sql = "INSERT INTO locadora.discos " +
-                    "(nome, valorDaLocacao, dataLancamento, tipoDisco, idLocadora)  " +
-                    "VALUES(?, ?, ?, ?, ?);";
+                    "(nome, valorDaLocacao, dataLancamento, tipoDisco)  " +
+                    "VALUES(?, ?, ?, ?);";
             PreparedStatement pst = c.prepareStatement(sql);
 
             pst.setString(1, obj.getNome());
             pst.setDouble(2, obj.getValorDaLocacao());
             pst.setString(3, obj.getDataLancamento().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             pst.setString(4, obj.getTipoDisco().toString());
-            pst.setInt(5,obj.getLocadora().getId());
 
             pst.execute();
         } finally {
@@ -41,10 +40,9 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "SELECT d.*, l.* " +
-                    "FROM discos d " +
-                    "INNER JOIN locadora.locadora l on d.idLocadora = l.id  " +
-                    "WHERE id=?;";
+            String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco  " +
+            "FROM locadora.discos " +
+            "WHERE id = ?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setInt(1, key);
@@ -55,15 +53,12 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
 
             if (resultado.next()) {
 
-                disco = new Disco(resultado.getInt(1),
-                        resultado.getString(2),
-                        resultado.getDouble(3),
-                        LocalDateTime.parse(resultado.getString(4)),
-                        ETipoDisco.valueOf(resultado.getString(5)),
-
-               new Locadora(resultado.getInt(7),
-                       resultado.getString(8),resultado.getString(9)));
-
+                disco = new Disco(
+                        resultado.getInt("id"),
+                        resultado.getString("nome"),
+                        resultado.getDouble("valorDaLocacao"),
+                        resultado.getTimestamp("dataLancamento").toLocalDateTime(),
+                        ETipoDisco.valueOf(resultado.getString("tipoDisco")));
             }
 
             return disco;
@@ -74,11 +69,12 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
     }
 
     public void apagar(Disco obj) throws SQLException, ClassNotFoundException {
+
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
             String sql = "DELETE FROM locadora.discos " +
-                    "WHERE id=?;";
+                    "WHERE id= ? ;";
 
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setInt(1,obj.getId());
@@ -95,8 +91,8 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
 
         try {
             String sql = "UPDATE locadora.discos " +
-                    "SET nome=?, valorDaLocacao=?, dataLancamento=?, tipoDisco=?" +
-                    "WHERE id=?;";
+                    "SET nome=?, valorDaLocacao=?, dataLancamento=?, tipoDisco=? "+
+                    "WHERE id=? ;";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
@@ -107,6 +103,26 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
             pst.setInt(5,obj.getId());
 
             pst.execute();
+        }finally {
+            c.close();
+        }
+    }
+
+    public ArrayList<Disco> buscarPorNome(String key) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco " +
+                    "FROM locadora.discos " +
+                    "WHERE nome LIKE ? ;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+
+            pst.setString(1, "%" + key + "%");
+
+            ResultSet resultado = pst.executeQuery();
+
+            return getRegistroToDiscos(resultado);
         }finally {
             c.close();
         }
@@ -132,21 +148,19 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
 
     private static ArrayList<Disco> getRegistroToDiscos(ResultSet resultado) throws SQLException {
 
+
         ArrayList<Disco> lista = new ArrayList<>();
 
         while (resultado.next()){
-            Disco ds = new Disco(resultado.getInt(1),
-                    resultado.getString(2),
-                    resultado.getDouble(3),
-                    LocalDateTime.parse(resultado.getString(4)),
-                    ETipoDisco.valueOf(resultado.getString(5)),
-
-            new Locadora(resultado.getInt(7),
-                    resultado.getString(8),resultado.getString(9)));
+            Disco ds = new Disco(
+                    resultado.getInt("id"),
+                    resultado.getString("nome"),
+                    resultado.getDouble("valorDaLocacao"),
+                    resultado.getTimestamp("dataLancamento").toLocalDateTime(),
+                    ETipoDisco.valueOf(resultado.getString("tipoDisco")));
 
             lista.add(ds);
         }
-
 
 
         return lista;

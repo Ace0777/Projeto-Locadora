@@ -100,15 +100,15 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
             if (resultado.next()) {
                 Funcionario fr = new Funcionario(
-                        resultado.getString("nome"),
+                        resultado.getString(6),
                         "",
                         "",
                         "",
-                        resultado.getInt("id"),
-                        resultado.getDouble("salario"),
-                        LocalDateTime.parse(resultado.getString("entrada"),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                        LocalDateTime.parse(resultado.getString("saida"),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                        new Locadora(resultado.getInt("idLocadora")));
+                        resultado.getInt(1),
+                        resultado.getDouble(4),
+                        LocalDateTime.parse(resultado.getString(2),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+                        LocalDateTime.parse(resultado.getString(3),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+                        new Locadora(resultado.getInt(5)));
             }
 
             return funcionario;
@@ -164,19 +164,21 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
     private static ArrayList<Funcionario> getRegistroToFuncionario(ResultSet resultado) throws SQLException {
 
+        //passar index
+
         ArrayList<Funcionario> lista = new ArrayList<>();
 
         while (resultado.next()){
             Funcionario fr = new Funcionario(
-                    resultado.getString("nome"),
+                    resultado.getString(6),
                     "",
                     "",
                     "",
-                    resultado.getInt("id"),
-                    resultado.getDouble("salario"),
-                    LocalDateTime.parse(resultado.getString("entrada"),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                    LocalDateTime.parse(resultado.getString("saida"),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                    new Locadora(resultado.getInt("idLocadora")));
+                    resultado.getInt(1),
+                    resultado.getDouble(4),
+                    LocalDateTime.parse(resultado.getString(2),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+                    LocalDateTime.parse(resultado.getString(3),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+                    new Locadora(resultado.getInt(5)));
 
 
             lista.add(fr);
