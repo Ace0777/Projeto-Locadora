@@ -15,7 +15,7 @@ class FuncionarioDAOTest {
     @org.junit.jupiter.api.Test
     void inserir() {
         try {
-            dao.inserir(new Funcionario("aa","l","123",
+            dao.inserir(new Funcionario("niclas","l","123",
                     "123",1,200, LocalDateTime.now(),LocalDateTime.now(),new Locadora(1)));
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -28,8 +28,8 @@ class FuncionarioDAOTest {
     @Test
     void alterar() {
         try {
-            dao.alterar(new Funcionario("iago","l","123",
-                    "123",1,200, LocalDateTime.now(),LocalDateTime.now()));
+            dao.alterar(new Funcionario("narigudo","l","123",
+                    "123",5,200, LocalDateTime.now(),LocalDateTime.now()));
         }catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -39,7 +39,7 @@ class FuncionarioDAOTest {
     @Test
     void buscar(){
         try {
-            var busca = dao.buscar(1);
+            var busca = dao.buscar(5);
             System.out.println(busca);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -50,8 +50,8 @@ class FuncionarioDAOTest {
     @Test
     void buscarPorNome(){
         try {
-            var busca = dao.buscarPorNome("iago");
-            System.out.println(busca);
+            var busca = dao.buscarPorNome("narigudo");
+            System.out.println(busca.toString());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {

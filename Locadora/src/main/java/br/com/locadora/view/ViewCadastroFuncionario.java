@@ -9,8 +9,6 @@ import br.com.locadora.model.usuario.Funcionario;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -264,10 +262,17 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_jtfSearchActionPerformed
 
     private void jtfSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSeActionPerformed
-        //pesquisar 
-        
-    
-      
+       
+         try {
+            
+            ArrayList<Funcionario> allFunc = new FuncionarioDAO().buscarPorNome(jtfSearch.getText());
+         
+            preencheTable(allFunc);
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Não foi possivel Buscar os funcionarios");
+        }
+           
     }//GEN-LAST:event_jtfSeActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

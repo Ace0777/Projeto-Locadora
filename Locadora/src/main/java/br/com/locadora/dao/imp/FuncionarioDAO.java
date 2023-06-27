@@ -22,8 +22,8 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
         try {
             String sql = "INSERT INTO locadora.funcionarios " +
-                    "(entrada, saida, salario, idLocadora,nome) " +
-                    "VALUES(?, ?, ?, ?, ?);  ";
+                    "(entrada, saida, salario, idLocadora,nome, login, senha) " +
+                    "VALUES(?, ?, ?, ?, ?, ? , ?);  ";
             PreparedStatement pst = c.prepareStatement(sql);
 
             pst.setString(1,obj.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
@@ -31,6 +31,8 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
             pst.setDouble(3,obj.getSalario());
             pst.setInt(4, obj.getLocadora().getId());
             pst.setString(5, obj.getNome());
+            pst.setString(6,obj.getLogin());
+            pst.setString(7,obj.getSenha());
 
             pst.execute();
         } finally {
@@ -44,7 +46,7 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
         try {
             String sql = "UPDATE locadora.funcionarios " +
-                    "SET  entrada=?, saida=?, salario=?, nome=? " +
+                    "SET  entrada=?, saida=?, salario=?, nome=?, login=?, senha=? " +
                     "WHERE id=?; ";
 
             PreparedStatement pst = c.prepareStatement(sql);
@@ -53,7 +55,9 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
             pst.setString(2,obj.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
             pst.setDouble(3, obj.getSalario());
             pst.setString(4, obj.getNome());
-            pst.setInt(5, obj.getId());
+            pst.setString(5,obj.getLogin());
+            pst.setString(6,obj.getSenha());
+            pst.setInt(7, obj.getId());
 
             pst.execute();
         }finally {
@@ -100,8 +104,8 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
             if (resultado.next()) {
                   funcionario = new Funcionario(
                         resultado.getString(6),
-                        "",
-                        "",
+                          resultado.getString(7),
+                          resultado.getString(8),
                         "",
                         resultado.getInt(1),
                         resultado.getDouble(4),
@@ -122,7 +126,7 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
         try {
             String sql = "SELECT f.*  " +
                     "FROM funcionarios f  " +
-                    "WHERE nome = ?;";
+                    "WHERE f.nome like ?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, "%" + key + "%");
@@ -167,8 +171,8 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
         while (resultado.next()){
             Funcionario fr = new Funcionario(
                     resultado.getString(6),
-                    "",
-                    "",
+                    resultado.getString(7),
+                    resultado.getString(8),
                     "",
                     resultado.getInt(1),
                     resultado.getDouble(4),
