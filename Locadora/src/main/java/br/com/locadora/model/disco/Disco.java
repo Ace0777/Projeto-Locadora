@@ -37,6 +37,7 @@ public class Disco implements TaxaDisco {
 
 
 
+
     public double TaxaTipoDisco(){
         if(tipoDisco == ETipoDisco.musica){
             return 2.75;

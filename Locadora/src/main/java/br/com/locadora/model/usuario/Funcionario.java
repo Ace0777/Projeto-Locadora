@@ -23,6 +23,13 @@ public class Funcionario extends Usuario {
         this.locadora = locadora;
     }
 
+    public Funcionario(String nome, String login, String senha, String email, int id, double salario, LocalDateTime entrada, LocalDateTime saida) {
+        super(nome, login, senha, email, id);
+        this.salario = salario;
+        this.entrada = entrada;
+        this.saida = saida;
+    }
+
 
     public double getSalario() {
         return salario;

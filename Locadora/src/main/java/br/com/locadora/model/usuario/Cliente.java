@@ -23,6 +23,13 @@ public class Cliente extends Usuario {
         this.locadora = locadora;
     }
 
+    public Cliente(String nome, String login, String senha, String email, int id, String documento, String telefone) {
+        super(nome, login, senha, email, id);
+        this.documento = documento;
+        this.telefone = telefone;
+    }
+
+
     public Locadora getLocadora() {
         return locadora;
     }

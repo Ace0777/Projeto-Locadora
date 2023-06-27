@@ -30,10 +30,10 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
             PreparedStatement pst = c.prepareStatement(sql);
 
             pst.setInt(1, obj.getDisco().getId());
+            pst.setString(4, obj.getEntrega().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            pst.setString(5, obj.getLocacao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             pst.setInt(2, obj.getFuncionario().getId());
             pst.setInt(3, obj.getCliente().getId());
-            pst.setString(4, obj.getEntrega().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss ")));
-            pst.setString(5, obj.getLocacao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss ")));
             pst.setInt(6, obj.getLocadora().getId());
 
             pst.execute();

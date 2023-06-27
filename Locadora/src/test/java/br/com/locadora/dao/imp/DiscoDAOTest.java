@@ -56,5 +56,16 @@ class DiscoDAOTest {
             throw new RuntimeException(e);
         }
     }
-    
+
+
+    @org.junit.jupiter.api.Test
+    void alterar() {
+        try {
+            dao.alterar(new Disco(1,"iago",300.0,LocalDateTime.now(),ETipoDisco.jogo));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

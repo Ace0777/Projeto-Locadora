@@ -189,7 +189,6 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jtFuncionario.setForeground(new java.awt.Color(255, 255, 255));
         jtFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -354,7 +353,7 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
         }
         
         for(Funcionario f : allFunc){
-            String[] linha = {f.getId()+"",f.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+            String[] linha = {f.getId()+"",f.getNome(),f.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
                 f.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))};
             
              dftm.addRow(linha);

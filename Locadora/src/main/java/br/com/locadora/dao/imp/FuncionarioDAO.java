@@ -44,7 +44,7 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
         try {
             String sql = "UPDATE locadora.funcionarios " +
-                    "SET = entrada=?, saida=?, salario=?, nome=? " +
+                    "SET  entrada=?, saida=?, salario=?, nome=? " +
                     "WHERE id=?; ";
 
             PreparedStatement pst = c.prepareStatement(sql);
@@ -52,7 +52,8 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
             pst.setString(1,obj.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
             pst.setString(2,obj.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
             pst.setDouble(3, obj.getSalario());
-            pst.setInt(4, obj.getId());
+            pst.setString(4, obj.getNome());
+            pst.setInt(5, obj.getId());
 
             pst.execute();
         }finally {
@@ -85,9 +86,8 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "SELECT f.*, l.*  " +
+            String sql = "SELECT f.*   " +
                     "FROM funcionarios f  " +
-                    "INNER JOIN locadoras l on f.idLocadora = l.id  " +
                     "WHERE id = ?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
@@ -97,18 +97,16 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
             Funcionario funcionario = null;
 
-
             if (resultado.next()) {
-                Funcionario fr = new Funcionario(
+                  funcionario = new Funcionario(
                         resultado.getString(6),
                         "",
                         "",
                         "",
                         resultado.getInt(1),
                         resultado.getDouble(4),
-                        LocalDateTime.parse(resultado.getString(2),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                        LocalDateTime.parse(resultado.getString(3),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                        new Locadora(resultado.getInt(5)));
+                        resultado.getTimestamp(2).toLocalDateTime(),
+                        resultado.getTimestamp(3).toLocalDateTime());
             }
 
             return funcionario;
@@ -122,9 +120,8 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "SELECT f.*, l.*  " +
+            String sql = "SELECT f.*  " +
                     "FROM funcionarios f  " +
-                    "INNER JOIN locadoras l on f.idLocadora = l.id  " +
                     "WHERE nome = ?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
@@ -146,9 +143,8 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "SELECT f.*, l.*  " +
-                    "FROM funcionarios f  " +
-                    "INNER JOIN locadoras l on f.idLocadora = l.id  ";
+            String sql = "SELECT f.* " +
+                    "FROM funcionarios f  ";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
@@ -176,10 +172,8 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
                     "",
                     resultado.getInt(1),
                     resultado.getDouble(4),
-                    LocalDateTime.parse(resultado.getString(2),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                    LocalDateTime.parse(resultado.getString(3),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                    new Locadora(resultado.getInt(5)));
-
+                    resultado.getTimestamp(2).toLocalDateTime(),
+                    resultado.getTimestamp(3).toLocalDateTime());
 
             lista.add(fr);
         }

@@ -20,14 +20,15 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
 
         try {
             String sql = "INSERT INTO locadora.clientes " +
-                    "(documento, telefone, idLocadora) " +
-                    "VALUES(?, ?, ?); ";
+                    "(documento, telefone, idLocadora, nome) " +
+                    "VALUES(?, ?, ?, ?); ";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
             pst.setString(1, obj.getDocumento());
             pst.setString(2,obj.getTelefone());
             pst.setInt(3, obj.getLocadora().getId());
+            pst.setString(4, obj.getNome());
 
             pst.execute();
         } finally {
@@ -41,14 +42,15 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
 
         try {
             String sql = "UPDATE locadora.clientes " +
-                    "SET documento= ? , telefone= ? " +
+                    "SET documento= ? , telefone= ?, nome= ? " +
                     "WHERE id= ?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
             pst.setString(1,obj.getDocumento());
             pst.setString(2,obj.getTelefone());
-            pst.setInt(3, obj.getId());
+            pst.setString(3,obj.getNome());
+            pst.setInt(4, obj.getId());
 
             pst.execute();
         }finally {
@@ -80,33 +82,27 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "SELECT c.*, l.*" +
+            String sql = "SELECT c.* " +
                     "FROM clientes c " +
-                    "INNER JOIN locadora.locadoras l on c.idDisco = l.id " +
-                    "WHERE id = ?;";
+                    "WHERE id = ? ;";
 
             PreparedStatement pst = c.prepareStatement(sql);
-
             pst.setInt(1,key);
 
             ResultSet resultado = pst.executeQuery();
 
             Cliente cliente = null;
 
-            Locadora locadora;
 
             if (resultado.next()) {
-               cliente = new Cliente(resultado.getString(1),
-                        resultado.getString(2),
-                        resultado.getString(3),
-                        resultado.getString(4),
-                        resultado.getInt(5),
-                        resultado.getString(6),
-                        resultado.getString(7),
-
-              locadora = new Locadora(resultado.getInt(8),
-               resultado.getString(9),resultado.getString(10)));
-
+               cliente = new Cliente(
+                       resultado.getString(4),
+                       null,
+                       null,
+                       null,
+                       resultado.getInt(1),
+                       resultado.getString(2),
+                       resultado.getString(3));
             }
 
             return cliente;
@@ -120,10 +116,30 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "SELECT id, documento, telefone " +
+            String sql = "SELECT id, documento, telefone,nome  " +
                     "FROM locadora.clientes; ";
 
             PreparedStatement pst = c.prepareStatement(sql);
+
+            ResultSet resultado = pst.executeQuery();
+
+            return getRegistroToCliente(resultado);
+
+        }finally {
+            c.close();
+        }
+    }
+
+    public ArrayList<Cliente> buscarPorNome(String key) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT c.* " +
+                    "FROM clientes c " +
+                    "WHERE id = ? ;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, "%" + key + "%");
 
             ResultSet resultado = pst.executeQuery();
 
@@ -139,18 +155,15 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
         ArrayList<Cliente> lista = new ArrayList<>();
 
         while (resultado.next()){
-            Locadora locadora;
 
-            Cliente cl = new Cliente(resultado.getString(1),
-                    resultado.getString(2),
-                    resultado.getString(3),
+            Cliente cl = new Cliente(
                     resultado.getString(4),
-                    resultado.getInt(5),
-                    resultado.getString(6),
-                    resultado.getString(7),
-
-                    locadora = new Locadora(resultado.getInt(8),
-                    resultado.getString(9),resultado.getString(10)));
+                    null,
+                    null,
+                    null,
+                    resultado.getInt(1),
+                    resultado.getString(2),
+                    resultado.getString(3));
 
             lista.add(cl);
         }
