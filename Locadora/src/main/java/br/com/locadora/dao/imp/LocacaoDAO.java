@@ -31,7 +31,7 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
 
             pst.setInt(1, obj.getDisco().getId());
             pst.setString(4, obj.getEntrega().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            pst.setString(5, obj.getLocacao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            pst.setString(5, obj.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             pst.setInt(2, obj.getFuncionario().getId());
             pst.setInt(3, obj.getCliente().getId());
             pst.setInt(6, obj.getLocadora().getId());
@@ -54,7 +54,7 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
             PreparedStatement pst = c.prepareStatement(sql);
 
             pst.setString(1, obj.getEntrega().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss ")));
-            pst.setString(2, obj.getLocacao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss ")));
+            pst.setString(2, obj.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss ")));
             pst.setInt(3, obj.getId());
 
             pst.execute();
@@ -87,12 +87,16 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "SELECT l.*, d.*, f.*, j.*, lc.*  " +
-                    "FROM locacaos l  " +
-                    "INNER JOIN discos d on l.idDisco = d.id  " +
-                    "INNER JOIN funcionarios f on l.idFuncionario = f.id  " +
-                    "INNER JOIN clientes j on l.idCliente = j.id  " +
-                    "WHERE id = ?;";
+            String sql = "SELECT l.id AS locacaoId, l.entrega AS locacaoEntrega, l.saida AS locacaoSaida, " +
+                    "       d.id AS discoId, d.valorDaLocacao AS discoPreco, d.nome AS discoNome, " +
+                    "       f.id AS funcionarioId, f.nome AS funcionarioNome, j.id AS clienteId, j.nome AS clienteNome, " +
+                    "       lc.id AS locadoraId, lc.nome AS nomeLocadora " +
+                    "FROM locacaos AS l  " +
+                    "INNER JOIN discos AS d ON l.idDisco = d.id   " +
+                    "INNER JOIN funcionarios AS f ON l.idFuncionario = f.id   " +
+                    "INNER JOIN clientes AS j ON l.idCliente = j.id   " +
+                    "INNER JOIN locadoras AS lc ON l.idLocadora = lc.id  " +
+                    "WHERE l.id = ? ; ";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
@@ -104,35 +108,26 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
 
             if (resultado.next()) {
 
-                Funcionario funcionario = new Funcionario(resultado.getString(9),
-                        resultado.getString(10),
-                        resultado.getString(11),
-                        resultado.getString(12),
-                        resultado.getInt(13),
-                        resultado.getDouble(14),
-                        LocalDateTime.parse(resultado.getString(15),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                        LocalDateTime.parse(resultado.getString(16), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                        null);
+                var funcionario = new Funcionario(
+                        resultado.getInt("funcionarioId"),
+                        resultado.getString("funcionarioNome"));
 
-                Disco disco = new Disco(resultado.getInt(4),
-                        resultado.getString(5),
-                        resultado.getDouble(6),
-                        LocalDateTime.parse(resultado.getString(7)),
-                        ETipoDisco.valueOf(resultado.getString(8)));
 
-                Cliente cliente = new Cliente(resultado.getString(20),
-                        resultado.getString(21),
-                        resultado.getString(22),
-                        resultado.getString(23),
-                        resultado.getInt(24),
-                        resultado.getString(25),
-                        resultado.getString(26),null);
+                var disco = new Disco(
+                        resultado.getInt("discoId"),
+                        resultado.getDouble("discoPreco"),
+                        resultado.getString("discoNome"));
 
-                Locadora locadora = new Locadora(resultado.getInt(27),
-                        resultado.getString(28),resultado.getString(29));
+                var cliente = new Cliente(
+                        resultado.getInt("clienteId"),
+                        resultado.getString("clienteNome"));
 
-                locacao = new Locacao(resultado.getInt(1),LocalDateTime.parse(resultado.getString(2),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                        LocalDateTime.parse(resultado.getString(3),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),disco,funcionario,cliente,locadora);
+                var locadora = new Locadora(resultado.getInt("locadoraId"),
+                        resultado.getString("nomeLocadora"));
+
+
+                locacao = new Locacao(resultado.getInt("locacaoId"),resultado.getTimestamp("locacaoEntrega").toLocalDateTime(),
+                        resultado.getTimestamp("locacaoSaida").toLocalDateTime(),disco,funcionario,cliente,locadora);
 
             }
 
@@ -147,11 +142,15 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
     public ArrayList<Locacao> buscarTodos() throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnectionMysql();
         try {
-            String sql = "SELECT l.*, d.*, f.*, j.*, lc.*  " +
-                    "FROM locacaos l  " +
-                    "INNER JOIN discos d on l.idDisco = d.id  " +
-                    "INNER JOIN funcionarios f on l.idFuncionario = f.id  " +
-                    "INNER JOIN clientes j on l.idCliente = j.id  ";
+            String sql = "SELECT l.id AS locacaoId, l.entrega AS locacaoEntrega, l.saida AS locacaoSaida, " +
+                    "       d.id AS discoId, d.valorDaLocacao AS discoPreco, d.nome AS discoNome, " +
+                    "       f.id AS funcionarioId, f.nome AS funcionarioNome, j.id AS clienteId, j.nome AS clienteNome, " +
+                    "       lc.id AS locadoraId, lc.nome AS nomeLocadora " +
+                    "FROM locacaos AS l  " +
+                    "INNER JOIN discos AS d ON l.idDisco = d.id   " +
+                    "INNER JOIN funcionarios AS f ON l.idFuncionario = f.id   " +
+                    "INNER JOIN clientes AS j ON l.idCliente = j.id   " +
+                    "INNER JOIN locadoras AS lc ON l.idLocadora = lc.id   ";
 
 
             PreparedStatement pst = c.prepareStatement(sql);
@@ -171,35 +170,26 @@ public class LocacaoDAO implements IGenericDAO<Locacao, Integer> {
 
         while (resultado.next()){
 
-            Funcionario funcionario = new Funcionario(resultado.getString(9),
-                    resultado.getString(10),
-                    resultado.getString(11),
-                    resultado.getString(12),
-                    resultado.getInt(13),
-                    resultado.getDouble(14),
-                    LocalDateTime.parse(resultado.getString(15),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                    LocalDateTime.parse(resultado.getString(16), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                    null);
+            var funcionario = new Funcionario(
+                    resultado.getInt("funcionarioId"),
+                    resultado.getString("funcionarioNome"));
 
-            Disco disco = new Disco(resultado.getInt(4),
-                    resultado.getString(5),
-                    resultado.getDouble(6),
-                    LocalDateTime.parse(resultado.getString(7)),
-                    ETipoDisco.valueOf(resultado.getString(8)));
 
-            Cliente cliente = new Cliente(resultado.getString(20),
-                    resultado.getString(21),
-                    resultado.getString(22),
-                    resultado.getString(23),
-                    resultado.getInt(24),
-                    resultado.getString(25),
-                    resultado.getString(26),null);
+            var disco = new Disco(
+                    resultado.getInt("discoId"),
+                    resultado.getDouble("discoPreco"),
+                    resultado.getString("discoNome"));
 
-            Locadora locadora = new Locadora(resultado.getInt(27),
-                    resultado.getString(28),resultado.getString(29));
+            var cliente = new Cliente(
+                    resultado.getInt("clienteId"),
+                    resultado.getString("clienteNome"));
 
-           Locacao locacao = new Locacao(resultado.getInt(1),LocalDateTime.parse(resultado.getString(2),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                    LocalDateTime.parse(resultado.getString(3),DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),disco,funcionario,cliente,locadora);
+            var locadora = new Locadora(resultado.getInt("locadoraId"),
+                    resultado.getString("nomeLocadora"));
+
+
+           var locacao = new Locacao(resultado.getInt("locacaoId"),resultado.getTimestamp("locacaoEntrega").toLocalDateTime(),
+                    resultado.getTimestamp("locacaoSaida").toLocalDateTime(),disco,funcionario,cliente,locadora);
 
            lista.add(locacao);
         }

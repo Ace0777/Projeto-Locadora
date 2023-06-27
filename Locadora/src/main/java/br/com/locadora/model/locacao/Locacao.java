@@ -13,17 +13,17 @@ public class Locacao {
     private Funcionario funcionario;
     private Cliente cliente;
    private LocalDateTime entrega;
-    private LocalDateTime locacao;
+    private LocalDateTime saida;
     private Locadora locadora;
 
     public Locacao(){
 
     }
 
-    public Locacao(int id, LocalDateTime entrega, LocalDateTime locacao, Disco disco, Funcionario funcionario, Cliente cliente, Locadora locadora) {
+    public Locacao(int id, LocalDateTime entrega, LocalDateTime saida, Disco disco, Funcionario funcionario, Cliente cliente, Locadora locadora) {
         this.id = id;
         this.entrega = entrega;
-        this.locacao = locacao;
+        this.saida = saida;
         this.disco = disco;
         this.funcionario = funcionario;
         this.cliente = cliente;
@@ -73,12 +73,12 @@ public class Locacao {
         this.entrega = entrega;
     }
 
-    public LocalDateTime getLocacao() {
-        return locacao;
+    public LocalDateTime getSaida() {
+        return saida;
     }
 
-    public void setLocacao(LocalDateTime locacao) {
-        this.locacao = locacao;
+    public void setSaida(LocalDateTime saida) {
+        this.saida = saida;
     }
 
     public Locadora getLocadora() {

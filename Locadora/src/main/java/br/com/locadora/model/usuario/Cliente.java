@@ -16,6 +16,10 @@ public class Cliente extends Usuario {
 
     }
 
+    public Cliente(int id){
+        super(null,null,null,null,id);
+    }
+
     public Cliente(String nome, String login, String senha, String email, int id, String documento, String telefone, Locadora locadora) {
         super(nome, login, senha, email, id);
         this.documento = documento;
@@ -27,6 +31,10 @@ public class Cliente extends Usuario {
         super(nome, login, senha, email, id);
         this.documento = documento;
         this.telefone = telefone;
+    }
+
+    public Cliente(int id, String nome) {
+        super(nome,null,null,null,id);
     }
 
 

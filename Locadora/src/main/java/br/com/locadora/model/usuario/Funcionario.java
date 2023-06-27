@@ -15,6 +15,10 @@ public class Funcionario extends Usuario {
 
     }
 
+    public Funcionario(int id){
+        super(null,null,null,null,id);
+    }
+
     public Funcionario(String nome, String login, String senha, String email, int id, double salario, LocalDateTime entrada, LocalDateTime saida, Locadora locadora) {
         super(nome, login, senha, email, id);
         this.salario = salario;
@@ -28,6 +32,10 @@ public class Funcionario extends Usuario {
         this.salario = salario;
         this.entrada = entrada;
         this.saida = saida;
+    }
+
+    public Funcionario(int id, String nome) {
+        super(nome,null,null,null,id);
     }
 
 

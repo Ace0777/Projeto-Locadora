@@ -18,6 +18,10 @@ public class Disco implements TaxaDisco {
 
     }
 
+    public Disco(int id) {
+        this.id = id;
+    }
+
     public Disco(int id, String nome, Double valorDaLocacao, LocalDateTime dataLancamento, ETipoDisco tipoDisco) {
         this.nome = nome;
         this.id = id;
@@ -35,7 +39,11 @@ public class Disco implements TaxaDisco {
         this.locadora = locadora;
     }
 
-
+    public Disco(int id, double valorDaLocacao, String nome) {
+        this.id = id;
+        this.valorDaLocacao = valorDaLocacao;
+        this.nome = nome;
+    }
 
 
     public double TaxaTipoDisco(){
