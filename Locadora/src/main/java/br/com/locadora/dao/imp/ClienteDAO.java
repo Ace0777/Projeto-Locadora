@@ -20,8 +20,8 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
 
         try {
             String sql = "INSERT INTO locadora.clientes " +
-                    "(documento, telefone, idLocadora, nome) " +
-                    "VALUES(?, ?, ?, ?); ";
+                    "(documento, telefone, idLocadora, nome, login, senha) " +
+                    "VALUES(?, ?, ?, ?, ?, ?); ";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
@@ -29,6 +29,8 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
             pst.setString(2,obj.getTelefone());
             pst.setInt(3, obj.getLocadora().getId());
             pst.setString(4, obj.getNome());
+            pst.setString(5, obj.getLogin());
+            pst.setString(6, obj.getSenha());
 
             pst.execute();
         } finally {
@@ -42,7 +44,7 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
 
         try {
             String sql = "UPDATE locadora.clientes " +
-                    "SET documento= ? , telefone= ?, nome= ? " +
+                    "SET documento= ? , telefone= ?, nome= ?, login=?, senha=? " +
                     "WHERE id= ?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
@@ -50,7 +52,9 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
             pst.setString(1,obj.getDocumento());
             pst.setString(2,obj.getTelefone());
             pst.setString(3,obj.getNome());
-            pst.setInt(4, obj.getId());
+            pst.setString(4, obj.getLogin());
+            pst.setString(5, obj.getSenha());
+            pst.setInt(6, obj.getId());
 
             pst.execute();
         }finally {
@@ -96,10 +100,10 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
 
             if (resultado.next()) {
                cliente = new Cliente(
-                       resultado.getString(4),
-                       null,
-                       null,
-                       null,
+                       resultado.getString(5),
+                       resultado.getString(6),
+                       resultado.getString(7),
+                       "",
                        resultado.getInt(1),
                        resultado.getString(2),
                        resultado.getString(3));
@@ -116,7 +120,7 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
-            String sql = "SELECT id, documento, telefone,nome  " +
+            String sql = "SELECT * " +
                     "FROM locadora.clientes; ";
 
             PreparedStatement pst = c.prepareStatement(sql);
@@ -136,7 +140,7 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
         try {
             String sql = "SELECT c.* " +
                     "FROM clientes c " +
-                    "WHERE id = ? ;";
+                    "WHERE nome like ? ;";
 
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, "%" + key + "%");
@@ -157,14 +161,13 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
         while (resultado.next()){
 
             Cliente cl = new Cliente(
-                    resultado.getString(4),
-                    null,
-                    null,
-                    null,
+                    resultado.getString(5),
+                    resultado.getString(6),
+                    resultado.getString(7),
+                    "",
                     resultado.getInt(1),
                     resultado.getString(2),
                     resultado.getString(3));
-
             lista.add(cl);
         }
 

@@ -15,7 +15,7 @@ class ClienteDAOTest {
     @Test
     void inserir() {
         try {
-            dao.inserir(new Cliente("iago","luis","luis","luis",1,"luis","luis",new Locadora(1)));
+            dao.inserir(new Cliente("nikao","luis","luis","luis",1,"luis","luis",new Locadora(1)));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -26,7 +26,7 @@ class ClienteDAOTest {
     @Test
     void alterar(){
         try {
-            dao.alterar(new Cliente("iago","luis","luis","luis",2,"luis","123",new Locadora(1)));
+            dao.alterar(new Cliente("narigudo","luis","luis","luis",2,"luis","123",new Locadora(1)));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -49,7 +49,7 @@ class ClienteDAOTest {
     @Test
     void buscarPorNome(){
         try {
-            var busca =  dao.buscarPorNome("iago");
+            var busca =  dao.buscarPorNome("narigudo");
             System.out.println(busca);
         } catch (SQLException e) {
             throw new RuntimeException(e);
