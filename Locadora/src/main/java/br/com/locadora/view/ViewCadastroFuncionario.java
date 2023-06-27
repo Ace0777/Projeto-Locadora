@@ -132,6 +132,11 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
         jButton1.setBackground(new java.awt.Color(204, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icone_novo.png"))); // NOI18N
         jButton1.setText("Novo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(204, 0, 0));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icone_alterar.png"))); // NOI18N
@@ -288,6 +293,12 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
         }
                               
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //novo 
+        ViewDetailFuncionario novo = new ViewDetailFuncionario(null,true);
+        novo.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

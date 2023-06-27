@@ -16,7 +16,7 @@ class FuncionarioDAOTest {
     void inserir() {
         try {
             dao.inserir(new Funcionario("niclas","l","123",
-                    "123",1,200, LocalDateTime.now(),LocalDateTime.now(),new Locadora(1)));
+                    "",1,200, LocalDateTime.now(),LocalDateTime.now(),new Locadora(1)));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {

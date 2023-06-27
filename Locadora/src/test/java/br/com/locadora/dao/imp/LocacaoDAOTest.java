@@ -43,7 +43,8 @@ class LocacaoDAOTest {
     @org.junit.jupiter.api.Test
     void buscar(){
         try {
-            dao.buscar(4);
+         var result =  dao.buscar(4);
+            System.out.println(result);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {

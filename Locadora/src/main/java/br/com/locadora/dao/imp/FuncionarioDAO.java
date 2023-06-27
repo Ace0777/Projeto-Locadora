@@ -27,7 +27,7 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
             PreparedStatement pst = c.prepareStatement(sql);
 
             pst.setString(1,obj.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
-            pst.setString(2,obj.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss ")));
+            pst.setString(2,obj.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
             pst.setDouble(3,obj.getSalario());
             pst.setInt(4, obj.getLocadora().getId());
             pst.setString(5, obj.getNome());
@@ -130,6 +130,28 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, "%" + key + "%");
+
+            ResultSet resultado = pst.executeQuery();
+
+            return getRegistroToFuncionario(resultado);
+
+        }finally {
+            c.close();
+        }
+    }
+
+
+    public ArrayList<Funcionario> buscarPorLoginSenha(String login,String senha) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT f.*  " +
+                    "FROM funcionarios f  " +
+                    "WHERE f.login = ?  and f.senha = ?;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1,  login );
+            pst.setString(2,  senha );
 
             ResultSet resultado = pst.executeQuery();
 

@@ -154,6 +154,27 @@ public class ClienteDAO implements IGenericDAO<Cliente, Integer> {
         }
     }
 
+    public ArrayList<Cliente> buscarPorLoginSenha(String login, String senha) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT c.* " +
+                    "FROM clientes c " +
+                    "WHERE login = ? and senha = ? ;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, login);
+            pst.setString(2, senha);
+
+            ResultSet resultado = pst.executeQuery();
+
+            return getRegistroToCliente(resultado);
+
+        }finally {
+            c.close();
+        }
+    }
+
     private static ArrayList<Cliente> getRegistroToCliente(ResultSet resultado) throws SQLException{
 
         ArrayList<Cliente> lista = new ArrayList<>();

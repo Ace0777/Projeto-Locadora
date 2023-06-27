@@ -34,6 +34,16 @@ public class Funcionario extends Usuario {
         this.saida = saida;
     }
 
+    public Funcionario(String nome, String login, String senha, int id, double salario, LocalDateTime entrada, LocalDateTime saida, Locadora locadora ) {
+        super(nome, login, senha, null, id);
+        this.salario = salario;
+        this.entrada = entrada;
+        this.saida = saida;
+        this.locadora = locadora;
+    }
+
+
+
     public Funcionario(int id, String nome) {
         super(nome,null,null,null,id);
     }
