@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.33, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: locadora
 -- ------------------------------------------------------
--- Server version	8.0.33-0ubuntu0.20.04.2
+-- Server version	8.0.33
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -19,9 +19,9 @@
 -- Table structure for table `clientes`
 --
 
-create database if not exists locadora;
+CREATE DATABASE IF NOT EXISTS locadora;
 
-use locadora;
+USE locadora;
 
 DROP TABLE IF EXISTS `clientes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -31,10 +31,13 @@ CREATE TABLE `clientes` (
   `documento` varchar(100) NOT NULL,
   `telefone` varchar(100) NOT NULL,
   `idLocadora` int NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `login` varchar(100) NOT NULL,
+  `senha` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `clientes_FK` (`idLocadora`),
   CONSTRAINT `clientes_FK` FOREIGN KEY (`idLocadora`) REFERENCES `locadoras` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +46,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (1,'ASA','123',1,'bruno','',''),(2,'luis','123',1,'narigudo','luis','luis'),(3,'luis','123',1,'iago','',''),(4,'luis','luis',1,'nikao','luis','luis'),(5,'020.232.80.9','32988002696',1,'Daves ','daves','123'),(6,'020.232.80s.9','3298800s2696',1,'Davesss ','davesss','1s23');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,11 +63,8 @@ CREATE TABLE `discos` (
   `valorDaLocacao` double DEFAULT NULL,
   `dataLancamento` datetime DEFAULT NULL,
   `tipoDisco` enum('filme','musica','jogo') NOT NULL,
-  `idLocadora` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `discos_FK` (`idLocadora`),
-  CONSTRAINT `discos_FK` FOREIGN KEY (`idLocadora`) REFERENCES `locadoras` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,6 +73,7 @@ CREATE TABLE `discos` (
 
 LOCK TABLES `discos` WRITE;
 /*!40000 ALTER TABLE `discos` DISABLE KEYS */;
+INSERT INTO `discos` VALUES (1,'iago',303.77,'2023-06-26 00:00:00','jogo'),(3,'Luis',3.7299999999999995,'2023-06-26 00:00:00','filme'),(4,'Luis',3.7299999999999995,'2023-06-26 00:00:00','filme');
 /*!40000 ALTER TABLE `discos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,10 +90,13 @@ CREATE TABLE `funcionarios` (
   `saida` datetime NOT NULL,
   `salario` double NOT NULL,
   `idLocadora` int NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `login` varchar(100) NOT NULL,
+  `senha` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `funcionarios_FK` (`idLocadora`),
   CONSTRAINT `funcionarios_FK` FOREIGN KEY (`idLocadora`) REFERENCES `locadoras` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,6 +105,7 @@ CREATE TABLE `funcionarios` (
 
 LOCK TABLES `funcionarios` WRITE;
 /*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
+INSERT INTO `funcionarios` VALUES (1,'2023-06-26 08:13:51','2023-06-26 08:13:51',200,1,'iago','',''),(2,'2020-05-01 09:13:00','2020-05-01 09:13:00',2000,1,'bruno','',''),(4,'2023-06-26 07:56:03','2023-06-26 07:56:03',200,1,'luis','',''),(5,'2023-06-27 07:29:06','2023-06-27 07:29:06',200,1,'narigudo','l','123');
 /*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +122,7 @@ CREATE TABLE `locacaos` (
   `idFuncionario` int NOT NULL,
   `idCliente` int NOT NULL,
   `entrega` datetime NOT NULL,
-  `locacao` datetime NOT NULL,
+  `saida` datetime NOT NULL,
   `idLocadora` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `locacaos_FK` (`idCliente`),
@@ -127,7 +133,7 @@ CREATE TABLE `locacaos` (
   CONSTRAINT `locacaos_FK_1` FOREIGN KEY (`idDisco`) REFERENCES `discos` (`id`),
   CONSTRAINT `locacaos_FK_2` FOREIGN KEY (`idFuncionario`) REFERENCES `funcionarios` (`id`),
   CONSTRAINT `locacaos_FK_3` FOREIGN KEY (`idLocadora`) REFERENCES `locadoras` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,6 +142,7 @@ CREATE TABLE `locacaos` (
 
 LOCK TABLES `locacaos` WRITE;
 /*!40000 ALTER TABLE `locacaos` DISABLE KEYS */;
+INSERT INTO `locacaos` VALUES (4,1,1,1,'2023-06-26 00:00:00','2023-06-26 00:00:00',1),(5,1,1,1,'2023-06-26 00:00:00','2023-06-26 00:00:00',1);
 /*!40000 ALTER TABLE `locacaos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +158,7 @@ CREATE TABLE `locadoras` (
   `endereco` varchar(100) NOT NULL,
   `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,8 +167,18 @@ CREATE TABLE `locadoras` (
 
 LOCK TABLES `locadoras` WRITE;
 /*!40000 ALTER TABLE `locadoras` DISABLE KEYS */;
+INSERT INTO `locadoras` VALUES (1,'rua paula lima','Daves');
 /*!40000 ALTER TABLE `locadoras` ENABLE KEYS */;
 UNLOCK TABLES;
+
+INSERT INTO locadora.clientes
+(documento, telefone, idLocadora, nome, login, senha)
+VALUES('020.232.80.9', '32988002696', 1, 'Daves ', 'daves', '123');
+
+
+INSERT INTO locadora.funcionarios
+(entrada, saida, salario, idLocadora, nome, login, senha)
+VALUES('2023-06-27 20:17:58', '2023-06-27 20:18:02', 1200.0, 1, 'Luis', 'luis', '123');
 
 --
 -- Dumping routines for database 'locadora'
@@ -176,4 +193,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-15 23:22:57
+-- Dump completed on 2023-06-27 20:15:27
