@@ -80,4 +80,7 @@ public class Funcionario extends Usuario {
     public void setLocadora(Locadora locadora) {
         this.locadora = locadora;
     }
+
+
+
 }

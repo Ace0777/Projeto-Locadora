@@ -107,7 +107,6 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
@@ -222,7 +221,7 @@ public class Principal extends javax.swing.JFrame {
            jmAjuda.setVisible(true);
        }
        
-       lblUsario.setText("Bem vindo "+userLogado.getNome()+ " ao");
+       lblUsario.setText("Bem-vindo, "+userLogado.getNome()+ " ao");
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed

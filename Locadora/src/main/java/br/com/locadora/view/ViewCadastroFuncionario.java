@@ -255,7 +255,33 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        //apagar
+
+        int row = jtFuncionario.getSelectedRow();
+
+        if (row <= -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um Funcionario!");
+        } else {
+
+        }
+        if (JOptionPane.showConfirmDialog(null,
+                "Deseja apagar o Funcionario " + allFunc.get(row).getNome() + "?",
+                "Apagar funcionario? ", JOptionPane.YES_NO_OPTION)
+                == JOptionPane.YES_OPTION) {
+
+            try {
+                Funcionario f = new FuncionarioDAO().buscar(allFunc.get(row).getId());
+                new FuncionarioDAO().apagar(f);
+
+                JOptionPane.showMessageDialog(null, "Funcionário Excluido");
+                formWindowOpened(null);
+
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível deletar o  funcionário");
+                System.out.println(ex.getMessage());
+
+            }
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -267,37 +293,40 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_jtfSearchActionPerformed
 
     private void jtfSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSeActionPerformed
-       
-         try {
-            
-            ArrayList<Funcionario> allFunc = new FuncionarioDAO().buscarPorNome(jtfSearch.getText());
-         
+
+        try {
+
+            allFunc = new FuncionarioDAO().buscarPorNome(jtfSearch.getText());
+
             preencheTable(allFunc);
-            
+
         } catch (ClassNotFoundException | SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Não foi possivel Buscar os funcionarios");
+            JOptionPane.showMessageDialog(null, "Não foi possivel Buscar os funcionarios");
         }
-           
+
     }//GEN-LAST:event_jtfSeActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-                   
+
         try {
-            
-            ArrayList<Funcionario> allFunc = new FuncionarioDAO().buscarTodos();
-         
+
+            allFunc = new FuncionarioDAO().buscarTodos();
+
             preencheTable(allFunc);
-            
+
         } catch (ClassNotFoundException | SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Não foi possivel Buscar os funcionarios");
+            JOptionPane.showMessageDialog(null, "Não foi possivel Buscar os funcionarios");
         }
-                              
+
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //novo 
-        ViewDetailFuncionario novo = new ViewDetailFuncionario(null,true);
+        ViewDetailFuncionario novo = new ViewDetailFuncionario(null, true);
+
         novo.setVisible(true);
+
+        formWindowOpened(null);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -359,21 +388,22 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
     private javax.swing.JTextField jtfSearch;
     // End of variables declaration//GEN-END:variables
 
+    private ArrayList<Funcionario> allFunc;
+
     private void preencheTable(ArrayList<Funcionario> allFunc) {
-       
+
         DefaultTableModel dftm = (DefaultTableModel) jtFuncionario.getModel();
-        
-        
-        while(dftm.getRowCount() > 0){
+
+        while (dftm.getRowCount() > 0) {
             dftm.removeRow(0);
         }
-        
-        for(Funcionario f : allFunc){
-            String[] linha = {f.getId()+"",f.getNome(),f.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+
+        for (Funcionario f : allFunc) {
+            String[] linha = {f.getId() + "", f.getNome(), f.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
                 f.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))};
-            
-             dftm.addRow(linha);
+
+            dftm.addRow(linha);
         }
-        
+
     }
 }

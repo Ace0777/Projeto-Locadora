@@ -72,7 +72,7 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
         try {
             String sql = "DELETE FROM locadora.funcionarios " +
-                    "WHERE id=?;";
+                    "WHERE id= ?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
 

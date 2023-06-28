@@ -240,27 +240,35 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
         //salvar  
         //Funcionario(String nome, String login, String senha, String email, int id, double salario, LocalDateTime entrada, LocalDateTime saida, Locadora locadora)
         try {
-            Funcionario fun = new Funcionario(jftNome.getText(), jtfLogin.getText(), jtfLogin.getText(), 0, 2500, LocalDateTime.now(), LocalDateTime.now(), new Locadora(1));
+            Funcionario fun = new Funcionario(jftNome.getText(), jtfLogin.getText(), jtfSenha.getText(), 0, 2500, LocalDateTime.now(), LocalDateTime.now(), new Locadora(1));
 
-            if (fun.getNome() == "") {
+            if (condicionalCampo(fun)) return;
 
-                JOptionPane.showMessageDialog(null, "Campo Null Vazio");
-                return;
-
-
-            }
-                new FuncionarioDAO().inserir(fun);
-
-                setVisible(false);
+            new FuncionarioDAO().inserir(fun);
 
                 JOptionPane.showMessageDialog(null, "Funcionario cadastrado");
 
-            
+                setVisible(false);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "dados incorretos");
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private static boolean condicionalCampo(Funcionario fun) {
+        if (fun.getNome().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vazio");
+            return true;
+        } else if(fun.getLogin().equals("")){
+             JOptionPane.showMessageDialog(null, "Campo Vazio");
+            return true;
+        } else if(fun.getSenha().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vazio");
+            return true;
+        }
+        return false;
+    }
 
     /**
      * @param args the command line arguments
