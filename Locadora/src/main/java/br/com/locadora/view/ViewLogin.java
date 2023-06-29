@@ -4,10 +4,14 @@
  */
 package br.com.locadora.view;
 
+import br.com.locadora.dao.imp.FuncionarioDAO;
 import br.com.locadora.model.usuario.Cliente;
 import br.com.locadora.model.usuario.Funcionario;
 import br.com.locadora.model.usuario.Usuario;
 import javax.swing.JOptionPane;
+import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
@@ -145,27 +149,32 @@ public class ViewLogin extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogarActionPerformed
+    private void jButtonLogarActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, ClassNotFoundException {//GEN-FIRST:event_jButtonLogarActionPerformed
         
         Funcionario f = new Funcionario("luis","luis","123","l@gmail",1,1000,null,null,null);
         
         Cliente c = new Cliente("zezin","ze","123","ze@gmail",1,"123","345",null);
+
+
+
+       boolean funcionario = FuncionarioDAO.buscarPorLoginSenha(jtfLogin.getText(), jtfSenha.getText());
+
+
+        for (Funcionario fu : loginSenha) {
+            String[]  todos = {fu.getLogin(), fu.getSenha()};
+
         
-         if( f.getLogin().equals(jtfLogin.getText()) &&
-                f.getSenha().equals(jtfSenha.getText())){
+         if( todos.equals(jtfLogin.getText()) && todos.equals(jtfSenha.getText())){
             
             user = f;
             setVisible(false);
-        
-        }else if (c.getLogin().equals(jtfLogin.getText()) &&
-                c.getSenha().equals(jtfSenha.getText())){
             
-            user=c;
-            setVisible(false);
-            
+
         }else{
             JOptionPane.showMessageDialog(null, 
                     "Usuário não encontrado");
+        }
+
         }
          
     }//GEN-LAST:event_jButtonLogarActionPerformed
@@ -228,6 +237,8 @@ public class ViewLogin extends javax.swing.JDialog {
     private javax.swing.JPasswordField jtfSenha;
     // End of variables declaration//GEN-END:variables
 
+
+    private ArrayList<Funcionario> loginSenha;
     private Usuario user;
 
     public Usuario getUser() {

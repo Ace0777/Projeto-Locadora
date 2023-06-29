@@ -197,7 +197,7 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
 
             },
             new String [] {
-                "#", "Nome", "Entrada", "Saida"
+                "#", "NOME", "DATA DE ENTRADA NA EMPRESA", "DATA DE DESLIGAMENTO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -251,7 +251,21 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        //alterar
+
+        int row = jtFuncionario.getSelectedRow();
+
+        if (row <= -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um Funcionario!");
+        } else {
+            
+            ViewDetailFuncionario novo = new ViewDetailFuncionario(null, true);
+            
+            novo.preparedEdit(allFunc.get(row));
+            novo.setVisible(true);
+
+            formWindowOpened(null);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

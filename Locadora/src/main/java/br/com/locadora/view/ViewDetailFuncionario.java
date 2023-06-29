@@ -8,6 +8,7 @@ import br.com.locadora.dao.imp.FuncionarioDAO;
 import br.com.locadora.model.locadora.Locadora;
 import br.com.locadora.model.usuario.Funcionario;
 import java.time.LocalDateTime;
+import java.time.Month;
 import javax.swing.JOptionPane;
 
 /**
@@ -49,6 +50,8 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
         jtfSenha = new javax.swing.JTextField();
         jtfEntrada = new javax.swing.JTextField();
         jtfSaida = new javax.swing.JTextField();
+        jftSalario = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -125,10 +128,10 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
         jLabel2.setText("NOME");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
-        jLabel3.setText("ENTRADA");
+        jLabel3.setText("ADIMISSÃO");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
-        jLabel4.setText("SAIDA");
+        jLabel4.setText("DESLIGAMENTO");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel5.setText("LOGIN");
@@ -151,6 +154,12 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
                 jtfSenhaActionPerformed(evt);
             }
         });
+
+        jftSalario.setEditable(false);
+        jftSalario.setText("2500 $");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
+        jLabel7.setText("SALARIO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,7 +184,8 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jftNome, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jftNome, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
@@ -183,8 +193,12 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtfEntrada)
-                            .addComponent(jtfSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jtfSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jftSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +221,9 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jtfEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jftSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -240,15 +256,20 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
         //salvar  
         //Funcionario(String nome, String login, String senha, String email, int id, double salario, LocalDateTime entrada, LocalDateTime saida, Locadora locadora)
         try {
-            Funcionario fun = new Funcionario(jftNome.getText(), jtfLogin.getText(), jtfSenha.getText(), 0, 2500, LocalDateTime.now(), LocalDateTime.now(), new Locadora(1));
+            Funcionario fun = new Funcionario(jftNome.getText(), jtfLogin.getText(), jtfSenha.getText(), 0, 2500, LocalDateTime.now(),LocalDateTime.now(), new Locadora(1));
 
-            if (condicionalCampo(fun)) return;
-
+            if (condicionalCampo(fun)) {
+                return;
+            }
+             if(funcionario == null){
             new FuncionarioDAO().inserir(fun);
+             } else{
+            fun.setId(funcionario.getId());
+            new FuncionarioDAO().alterar(fun);
+             }
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
 
-                JOptionPane.showMessageDialog(null, "Funcionario cadastrado");
-
-                setVisible(false);
+            setVisible(false);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "dados incorretos");
@@ -257,13 +278,13 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private static boolean condicionalCampo(Funcionario fun) {
-        if (fun.getNome().equals("")){
+        if (fun.getNome().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo Vazio");
             return true;
-        } else if(fun.getLogin().equals("")){
-             JOptionPane.showMessageDialog(null, "Campo Vazio");
+        } else if (fun.getLogin().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo Vazio");
             return true;
-        } else if(fun.getSenha().equals("")){
+        } else if (fun.getSenha().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo Vazio");
             return true;
         }
@@ -321,13 +342,25 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jftNome;
+    private javax.swing.JTextField jftSalario;
     private javax.swing.JTextField jtfEntrada;
     private javax.swing.JTextField jtfLogin;
     private javax.swing.JTextField jtfSaida;
     private javax.swing.JTextField jtfSenha;
     // End of variables declaration//GEN-END:variables
+
+    private Funcionario funcionario;
+    
+    void preparedEdit(Funcionario func) {
+        
+        funcionario = func;
+        jftNome.setText(func.getNome());
+        jtfLogin.setText(func.getLogin());
+        jtfSenha.setText(func.getSenha());
+    }
 }
