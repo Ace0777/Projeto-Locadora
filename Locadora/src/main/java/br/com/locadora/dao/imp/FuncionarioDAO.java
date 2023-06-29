@@ -141,7 +141,7 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
     }
 
 
-    public ArrayList<Funcionario> buscarPorLoginSenha(String login,String senha) throws SQLException, ClassNotFoundException {
+    public Funcionario buscarPorLoginSenha(String login,String senha) throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
@@ -155,7 +155,21 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
 
             ResultSet resultado = pst.executeQuery();
 
-            return getRegistroToFuncionario(resultado);
+            Funcionario funcionario = null;
+
+            if (resultado.next()) {
+                funcionario = new Funcionario(
+                        resultado.getString(6),
+                        resultado.getString(7),
+                        resultado.getString(8),
+                        "",
+                        resultado.getInt(1),
+                        resultado.getDouble(4),
+                        resultado.getTimestamp(2).toLocalDateTime(),
+                        resultado.getTimestamp(3).toLocalDateTime());
+            }
+
+            return funcionario;
 
         }finally {
             c.close();

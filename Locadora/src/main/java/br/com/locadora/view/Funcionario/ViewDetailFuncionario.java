@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package br.com.locadora.view;
+package br.com.locadora.view.Funcionario;
 
 import br.com.locadora.dao.imp.FuncionarioDAO;
 import br.com.locadora.model.locadora.Locadora;
@@ -256,7 +256,14 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
         //salvar  
         //Funcionario(String nome, String login, String senha, String email, int id, double salario, LocalDateTime entrada, LocalDateTime saida, Locadora locadora)
         try {
-            Funcionario fun = new Funcionario(jftNome.getText(), jtfLogin.getText(), jtfSenha.getText(), 0, 2500, LocalDateTime.now(),LocalDateTime.now(), new Locadora(1));
+            Funcionario fun = new Funcionario(jftNome.getText(),
+                    jtfLogin.getText(),
+                    jtfSenha.getText(),
+                    0,
+                    2500,
+                    LocalDateTime.now(),
+                    LocalDateTime.now(), 
+                    new Locadora(1));
 
             if (condicionalCampo(fun)) {
                 return;

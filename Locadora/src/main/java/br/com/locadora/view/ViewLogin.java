@@ -4,14 +4,16 @@
  */
 package br.com.locadora.view;
 
+import br.com.locadora.dao.imp.ClienteDAO;
 import br.com.locadora.dao.imp.FuncionarioDAO;
 import br.com.locadora.model.usuario.Cliente;
 import br.com.locadora.model.usuario.Funcionario;
 import br.com.locadora.model.usuario.Usuario;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -83,7 +85,13 @@ public class ViewLogin extends javax.swing.JDialog {
         jButton1.setText("ENTRAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLogarActionPerformed(evt);
+                try {
+                    jButtonLogarActionPerformed(evt);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -150,34 +158,30 @@ public class ViewLogin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLogarActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, ClassNotFoundException {//GEN-FIRST:event_jButtonLogarActionPerformed
-        
-        Funcionario f = new Funcionario("luis","luis","123","l@gmail",1,1000,null,null,null);
-        
-        Cliente c = new Cliente("zezin","ze","123","ze@gmail",1,"123","345",null);
 
+        try {
 
+            Funcionario f = new FuncionarioDAO().buscarPorLoginSenha(jtfLogin.getText(), jtfSenha.getText());
+            Cliente c = new ClienteDAO().buscarPorLoginSenha(jtfLogin.getText(), jtfSenha.getText());
+            testeLogin(f, c);
 
-       boolean funcionario = FuncionarioDAO.buscarPorLoginSenha(jtfLogin.getText(), jtfSenha.getText());
-
-
-        for (Funcionario fu : loginSenha) {
-            String[]  todos = {fu.getLogin(), fu.getSenha()};
-
-        
-         if( todos.equals(jtfLogin.getText()) && todos.equals(jtfSenha.getText())){
-            
-            user = f;
-            setVisible(false);
-            
-
-        }else{
-            JOptionPane.showMessageDialog(null, 
-                    "Usuário não encontrado");
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "erro");
         }
 
-        }
-         
     }//GEN-LAST:event_jButtonLogarActionPerformed
+
+    private void testeLogin(Funcionario f, Cliente c) {
+        if (f != null) {
+            setVisible(false);
+            user = f;
+        } else if (c != null) {
+            setVisible(false);
+            user = c;
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário não encontrado");
+        }
+    }
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
        System.exit(0);
@@ -197,16 +201,28 @@ public class ViewLogin extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewLogin.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ViewLogin.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ViewLogin.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ViewLogin.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -216,7 +232,7 @@ public class ViewLogin extends javax.swing.JDialog {
                 ViewLogin dialog = new ViewLogin(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
+public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
@@ -235,15 +251,12 @@ public class ViewLogin extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jtfLogin;
     private javax.swing.JPasswordField jtfSenha;
-    // End of variables declaration//GEN-END:variables
-
-
-    private ArrayList<Funcionario> loginSenha;
-    private Usuario user;
 
     public Usuario getUser() {
         return user;
     }
-    
-    
+
+    // End of variables declaration//GEN-END:variables
+    private Usuario user;
+
 }

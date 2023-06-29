@@ -4,6 +4,8 @@
  */
 package br.com.locadora.view;
 
+import br.com.locadora.view.Disco.ViewCadastroDisco;
+import br.com.locadora.view.Funcionario.ViewCadastroFuncionario;
 import br.com.locadora.model.usuario.Cliente;
 import br.com.locadora.model.usuario.Funcionario;
 import br.com.locadora.model.usuario.Usuario;
