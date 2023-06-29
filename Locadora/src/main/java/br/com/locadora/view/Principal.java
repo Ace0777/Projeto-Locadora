@@ -48,6 +48,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
         jmRelatorio = new javax.swing.JMenu();
         jmAjuda = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -165,6 +166,9 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu1.setText("Catálogo-Discos");
+        jMenuBar1.add(jMenu1);
+
         jmRelatorio.setBackground(new java.awt.Color(204, 0, 0));
         jmRelatorio.setText("Relatorio");
         jMenuBar1.add(jmRelatorio);
@@ -270,6 +274,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
