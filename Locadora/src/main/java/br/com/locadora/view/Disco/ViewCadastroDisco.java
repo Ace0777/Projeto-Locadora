@@ -6,7 +6,6 @@ package br.com.locadora.view.Disco;
 
 import br.com.locadora.dao.imp.DiscoDAO;
 import br.com.locadora.model.disco.Disco;
-import br.com.locadora.model.usuario.Funcionario;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -154,6 +153,11 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
         });
 
         jButton2.setText("NOVO");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("APAGAR");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +166,12 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
             }
         });
 
-        jButton7.setText("jButton7");
+        jButton7.setText("ALTERAR");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -171,10 +180,10 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jButton2)
-                .addGap(32, 32, 32)
-                .addComponent(jButton6)
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
                 .addComponent(jButton7)
+                .addGap(18, 18, 18)
+                .addComponent(jButton6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton5)
                 .addContainerGap())
@@ -183,12 +192,11 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton5)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -233,7 +241,9 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+       //voltar uma pagina 
+       
+       ViewCadastroDisco.this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -246,7 +256,7 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
             preencheTable(allDisc);
 
         } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possivel Buscar os funcionarios");
+            JOptionPane.showMessageDialog(null, "Não foi possivel Buscar os discos");
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -271,29 +281,55 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
         int row = jtDisco.getSelectedRow();
 
         if (row <= -1) {
-            JOptionPane.showMessageDialog(null, "Selecione um Funcionario!");
+            JOptionPane.showMessageDialog(null, "Selecione um disco!");
         } else {
 
         }
         if (JOptionPane.showConfirmDialog(null,
-                "Deseja apagar o Funcionario " + allDisc.get(row).getNome() + "?",
-                "Apagar funcionario? ", JOptionPane.YES_NO_OPTION)
+                "Deseja apagar o disco " + allDisc.get(row).getNome() + "?",
+                "Apagar disco? ", JOptionPane.YES_NO_OPTION)
                 == JOptionPane.YES_OPTION) {
 
             try {
                 Disco d = new DiscoDAO().buscar(allDisc.get(row).getId());
                 new DiscoDAO().apagar(d);
 
-                JOptionPane.showMessageDialog(null, "Funcionário Excluido");
+                JOptionPane.showMessageDialog(null, "Disco Excluido");
                 formWindowOpened(null);
 
             } catch (ClassNotFoundException | SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível deletar o  funcionário");
+                JOptionPane.showMessageDialog(null, "Não foi possível deletar o disco");
                 System.out.println(ex.getMessage());
 
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        //alterar
+        
+        int row = jtDisco.getSelectedRow();
+
+        if (row <= -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um disco!");
+        } else {
+            
+            ViewDetailDisco novo = new ViewDetailDisco(null, true);
+            
+            novo.preparedEdit(allDisc.get(row));
+            novo.setVisible(true);
+
+            formWindowOpened(null);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ViewDetailDisco novo = new ViewDetailDisco(null, true);
+
+        novo.setVisible(true);
+
+        formWindowOpened(null);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
