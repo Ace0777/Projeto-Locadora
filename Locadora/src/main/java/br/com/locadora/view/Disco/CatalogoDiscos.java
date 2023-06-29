@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package br.com.locadora.view;
+package br.com.locadora.view.Disco;
 
 import br.com.locadora.dao.imp.DiscoDAO;
 import br.com.locadora.model.disco.Disco;

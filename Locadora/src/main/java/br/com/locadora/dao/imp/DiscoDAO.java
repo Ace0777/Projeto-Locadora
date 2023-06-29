@@ -128,6 +128,23 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
         }
     }
 
+    public double somaMensalidades() throws SQLException, ClassNotFoundException {
+
+        Connection c = ConnectionFactory.getConnectionMysql();
+        try {
+            String sql = "SELECT sum(valorDaLocacao) FROM locadora.discos;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+
+            ResultSet resultado = pst.executeQuery();
+
+            resultado.next();
+
+            return resultado.getDouble(1);
+        } finally {
+            c.close();
+        }
+    }
     public ArrayList<Disco> buscarTodos() throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnectionMysql();
 
