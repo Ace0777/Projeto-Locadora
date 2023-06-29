@@ -36,7 +36,7 @@ public class CatalogoDiscos extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtDisco = new javax.swing.JTable();
+        jtDisco2 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -52,15 +52,15 @@ public class CatalogoDiscos extends javax.swing.JDialog {
             }
         });
 
-        jtDisco.setModel(new javax.swing.table.DefaultTableModel(
+        jtDisco2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "#", "NOME", "VALOR DA LOCAÇÃO", "DATA DE LANÇAMENTO", "TIPO"
+                "NOME", "VALOR DA LOCAÇÃO", "DATA DE LANÇAMENTO", "TIPO"
             }
         ));
-        jScrollPane2.setViewportView(jtDisco);
+        jScrollPane2.setViewportView(jtDisco2);
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
 
@@ -177,7 +177,8 @@ public class CatalogoDiscos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int row = jtDisco.getSelectedRow();
+   
+        int row = jtDisco2.getSelectedRow();
 
         if (row <= -1) {
             JOptionPane.showMessageDialog(null, "Selecione um disco!");
@@ -190,12 +191,13 @@ public class CatalogoDiscos extends javax.swing.JDialog {
                 == JOptionPane.YES_OPTION) {
 
             try {
-                Disco d = new DiscoDAO().buscar(allDisc.get(row).getId());
-                new DiscoDAO().apagar(d);
+                Disco desco = new DiscoDAO().buscar(allDisc.get(row).getId());
+                new DiscoDAO().apagar(desco);
 
                 JOptionPane.showMessageDialog(null, "Disco Reservado Com sucesso!");
                 
-
+                 formWindowOpened(null);
+                
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Não foi possível reservar o disco");
                 System.out.println(ex.getMessage());
@@ -227,6 +229,8 @@ public class CatalogoDiscos extends javax.swing.JDialog {
 
             preencheTable(allDisc);
 
+           
+            
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel Buscar os discos");
         }
@@ -281,7 +285,7 @@ public class CatalogoDiscos extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jtDisco;
+    private javax.swing.JTable jtDisco2;
     private javax.swing.JButton jtfPesquisa;
     private javax.swing.JTextField jtfSearch;
     // End of variables declaration//GEN-END:variables
@@ -290,7 +294,7 @@ public class CatalogoDiscos extends javax.swing.JDialog {
 
     private void preencheTable(ArrayList<Disco> allDisc) {
         
-       DefaultTableModel dftm = (DefaultTableModel) jtDisco.getModel();
+       DefaultTableModel dftm = (DefaultTableModel) jtDisco2.getModel();
 
         while (dftm.getRowCount() > 0) {
             dftm.removeRow(0);
@@ -299,7 +303,7 @@ public class CatalogoDiscos extends javax.swing.JDialog {
         for (Disco d : allDisc) {
             //int id, String nome, Double valorDaLocacao, LocalDateTime dataLancamento, ETipoDisco tipoDisco
             
-            String[] linha = {d.getId() + "",d.getNome(),
+            String[] linha = {d.getNome(),
                 d.getValorDaLocacao().toString(),
                 d.getDataLancamento().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
                 d.getTipoDisco().toString()};

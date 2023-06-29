@@ -413,8 +413,12 @@ public class ViewCadastroFuncionario extends javax.swing.JDialog {
         }
 
         for (Funcionario f : allFunc) {
-            String[] linha = {f.getId() + "", f.getNome(), f.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
-                f.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))};
+            String[] linha = {
+                f.getId() + "",
+                f.getNome(), 
+                f.getEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")),
+                f.getSaida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))
+            };
 
             dftm.addRow(linha);
         }

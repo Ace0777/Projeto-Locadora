@@ -248,7 +248,6 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //abriu janela
-        
         try {
 
             allDisc = new DiscoDAO().buscarTodos();

@@ -15,7 +15,7 @@ class ClienteDAOTest {
     @Test
     void inserir() {
         try {
-            dao.inserir(new Cliente("nikao","luis","luis","luis",1,"luis","luis",new Locadora(1)));
+            dao.inserir(new Cliente("teste15","luis","luis","luis",0,"luis","luis", new Locadora(1)));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
