@@ -61,8 +61,6 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jmRelatorio = new javax.swing.JMenu();
@@ -79,17 +77,28 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(153, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel3.setText("Diga Adeus Netflix...");
 
         lblUsario.setFont(new java.awt.Font("Segoe UI Black", 0, 35)); // NOI18N
+        lblUsario.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                lblUsarioAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
-        jLabel6.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel6.setBackground(new java.awt.Color(0, 0, 0));
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 0, 45)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText(" Dave’s Location");
+
+        jPanel3.setBackground(new java.awt.Color(153, 255, 255));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icone_pipoca.png"))); // NOI18N
 
@@ -246,32 +255,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu1.setText("Catálogo-Discos");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
-            }
-        });
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu1ActionPerformed(evt);
             }
         });
-
-        jMenu4.setText("Reservar");
-        jMenu4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu4ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenu4);
-
-        jMenu5.setText("Ver Reservados");
-        jMenu5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu5ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenu5);
 
         jMenuItem7.setText("Reservar");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
@@ -366,6 +354,7 @@ public class Principal extends javax.swing.JFrame {
            
            jmCadastro.setVisible(false);
            jmRelatorio.setVisible(false);
+           
         }else if (login.getUser() instanceof Funcionario){
            jmAjuda.setVisible(true);
        }
@@ -383,18 +372,10 @@ public class Principal extends javax.swing.JFrame {
         fun.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-          
-    }//GEN-LAST:event_jMenu1ActionPerformed
-
     private void jmRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRelatorioActionPerformed
        ViewRelatorio vr = new ViewRelatorio(this,true);
        vr.setVisible(true);
     }//GEN-LAST:event_jmRelatorioActionPerformed
-
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-      
-    }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jmRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmRelatorioMouseClicked
        ViewRelatorio vr = new ViewRelatorio(this,true);
@@ -409,25 +390,23 @@ public class Principal extends javax.swing.JFrame {
         Principal.this.dispose();
     }//GEN-LAST:event_jMenu3MouseClicked
 
-    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
-       CatalogoDiscos cd = new CatalogoDiscos(this,true);
-       cd.setVisible(true);
-    }//GEN-LAST:event_jMenu4ActionPerformed
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
 
-    private void jMenu5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu5ActionPerformed
-       DiscosAlugados cd = new DiscosAlugados(this,true);
-       cd.setVisible(true);
-    }//GEN-LAST:event_jMenu5ActionPerformed
-
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-       CatalogoDiscos cd = new CatalogoDiscos(this,true);
-       cd.setVisible(true);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-       DiscosAlugados cd = new DiscosAlugados(this,true);
-       cd.setVisible(true);
+        DiscosAlugados cd = new DiscosAlugados(this,true);
+        cd.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        CatalogoDiscos cd = new CatalogoDiscos(this,true);
+        cd.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void lblUsarioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_lblUsarioAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsarioAncestorAdded
 
     /**
      * @param args the command line arguments
@@ -480,8 +459,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;

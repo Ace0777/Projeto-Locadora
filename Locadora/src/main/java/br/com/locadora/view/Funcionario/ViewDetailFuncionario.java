@@ -61,7 +61,7 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(204, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(102, 153, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         jLabel1.setText("Funcionario");
@@ -83,10 +83,10 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        jPanel1.setBackground(new java.awt.Color(204, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButton1.setBackground(new java.awt.Color(204, 0, 0));
+        jButton1.setBackground(new java.awt.Color(102, 153, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icone_disket.png"))); // NOI18N
         jButton1.setText("Salvar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +95,7 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(204, 0, 0));
+        jButton2.setBackground(new java.awt.Color(102, 153, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icone_sair.png"))); // NOI18N
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -262,7 +262,7 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
                     jtfSenha.getText(),
                     0,
                     2500,
-                    LocalDateTime.parse("jtfEntrada",DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    LocalDateTime.now(),
                     LocalDateTime.now(), 
                     new Locadora(1));
 

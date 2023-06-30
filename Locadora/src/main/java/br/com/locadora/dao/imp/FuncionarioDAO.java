@@ -147,7 +147,7 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer> {
         try {
             String sql = "SELECT f.*  " +
                     "FROM funcionarios f  " +
-                    "WHERE f.login = ?  and f.senha = ?;";
+                    "WHERE f.login =?  and f.senha =?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1,  login );

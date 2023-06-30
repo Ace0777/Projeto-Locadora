@@ -57,9 +57,9 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
             }
         });
 
-        jPanel5.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(204, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(102, 153, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         jLabel1.setText("Disco");
@@ -75,17 +75,18 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(26, 26, 26))
         );
 
-        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Symbol", 0, 18), new java.awt.Color(204, 0, 0))); // NOI18N
 
-        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 14)); // NOI18N
         jLabel2.setText("Nome");
 
+        jtfSe.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jtfSe.setText("PESQUISAR");
         jtfSe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,26 +108,23 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jtfSe)
-                        .addGap(20, 20, 20))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(20, 20, 20))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jtfSe))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jtfSe, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -140,10 +138,11 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
         ));
         jScrollPane2.setViewportView(jtDisco);
 
-        jPanel4.setBackground(new java.awt.Color(204, 0, 0));
+        jPanel4.setBackground(new java.awt.Color(102, 153, 255));
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButton5.setBackground(new java.awt.Color(204, 0, 0));
+        jButton5.setBackground(new java.awt.Color(102, 153, 255));
+        jButton5.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icone_sair.png"))); // NOI18N
         jButton5.setText("Fechar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +151,9 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(102, 153, 255));
+        jButton2.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icone_novo.png"))); // NOI18N
         jButton2.setText("NOVO");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,6 +161,9 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
             }
         });
 
+        jButton6.setBackground(new java.awt.Color(102, 153, 255));
+        jButton6.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icone_apagar.png"))); // NOI18N
         jButton6.setText("APAGAR");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +171,9 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
             }
         });
 
+        jButton7.setBackground(new java.awt.Color(102, 153, 255));
+        jButton7.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icone_alterar.png"))); // NOI18N
         jButton7.setText("ALTERAR");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +194,7 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
                 .addComponent(jButton6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton5)
-                .addContainerGap())
+                .addGap(17, 17, 17))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +224,7 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -240,12 +248,6 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       //voltar uma pagina 
-       
-       ViewCadastroDisco.this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //abriu janela
         try {
@@ -259,8 +261,75 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        //alterar
+
+        int row = jtDisco.getSelectedRow();
+
+        if (row <= -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um disco!");
+        } else {
+
+            ViewDetailDisco novo = new ViewDetailDisco(null, true);
+
+            novo.preparedEdit(allDisc.get(row));
+            novo.setVisible(true);
+
+            formWindowOpened(null);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        //apgar
+        int row = jtDisco.getSelectedRow();
+
+        if (row <= -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um disco!");
+        } else {
+
+        }
+        if (JOptionPane.showConfirmDialog(null,
+            "Deseja apagar o disco " + allDisc.get(row).getNome() + "?",
+            "Apagar disco? ", JOptionPane.YES_NO_OPTION)
+        == JOptionPane.YES_OPTION) {
+
+        try {
+            Disco d = new DiscoDAO().buscar(allDisc.get(row).getId());
+            new DiscoDAO().apagar(d);
+
+            JOptionPane.showMessageDialog(null, "Disco Excluido");
+            formWindowOpened(null);
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível deletar o disco");
+            System.out.println(ex.getMessage());
+
+        }
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ViewDetailDisco novo = new ViewDetailDisco(null, true);
+
+        novo.setVisible(true);
+
+        formWindowOpened(null);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        //voltar uma pagina
+
+        ViewCadastroDisco.this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfSearchActionPerformed
+
+                                 
+
     private void jtfSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSeActionPerformed
-       try {
+        try {
 
             allDisc = new DiscoDAO().buscarPorNome(jtfSearch.getText());
 
@@ -270,65 +339,6 @@ public class ViewCadastroDisco extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Não foi possivel Buscar os Discos");
         }
     }//GEN-LAST:event_jtfSeActionPerformed
-
-    private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfSearchActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        //apgar       
-        int row = jtDisco.getSelectedRow();
-
-        if (row <= -1) {
-            JOptionPane.showMessageDialog(null, "Selecione um disco!");
-        } else {
-
-        }
-        if (JOptionPane.showConfirmDialog(null,
-                "Deseja apagar o disco " + allDisc.get(row).getNome() + "?",
-                "Apagar disco? ", JOptionPane.YES_NO_OPTION)
-                == JOptionPane.YES_OPTION) {
-
-            try {
-                Disco d = new DiscoDAO().buscar(allDisc.get(row).getId());
-                new DiscoDAO().apagar(d);
-
-                JOptionPane.showMessageDialog(null, "Disco Excluido");
-                formWindowOpened(null);
-
-            } catch (ClassNotFoundException | SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível deletar o disco");
-                System.out.println(ex.getMessage());
-
-            }
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        //alterar
-        
-        int row = jtDisco.getSelectedRow();
-
-        if (row <= -1) {
-            JOptionPane.showMessageDialog(null, "Selecione um disco!");
-        } else {
-            
-            ViewDetailDisco novo = new ViewDetailDisco(null, true);
-            
-            novo.preparedEdit(allDisc.get(row));
-            novo.setVisible(true);
-
-            formWindowOpened(null);
-        }
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ViewDetailDisco novo = new ViewDetailDisco(null, true);
-
-        novo.setVisible(true);
-
-        formWindowOpened(null);
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
