@@ -20,14 +20,15 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
 
         try {
             String sql = "INSERT INTO locadora.discos " +
-                    "(nome, valorDaLocacao, dataLancamento, tipoDisco)  " +
-                    "VALUES(?, ?, ?, ?);";
+                    "(nome, valorDaLocacao, dataLancamento, tipoDisco, alugado)  " +
+                    "VALUES(?, ?, ?, ?, false);";
             PreparedStatement pst = c.prepareStatement(sql);
 
             pst.setString(1, obj.getNome());
             pst.setDouble(2, obj.getValorDaLocacao());
             pst.setString(3, obj.getDataLancamento().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             pst.setString(4, obj.getTipoDisco().toString());
+
 
             pst.execute();
         } finally {
@@ -151,6 +152,65 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
         try {
             String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco " +
             "FROM locadora.discos;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+
+            ResultSet resultado = pst.executeQuery();
+
+            return getRegistroToDiscos(resultado);
+        }finally {
+            c.close();
+        }
+    }
+
+
+    public ArrayList<Disco> buscarTodosDisponiveis() throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco " +
+                    "FROM locadora.discos " +
+                    "WHERE alugado is false ;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+
+            ResultSet resultado = pst.executeQuery();
+
+            return getRegistroToDiscos(resultado);
+
+        }finally {
+            c.close();
+        }
+    }
+
+    public void atualizarAlugados (Integer id, boolean alugado) throws SQLException, ClassNotFoundException{
+
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "UPDATE locadora.discos " +
+                    "SET alugado=? "+
+                    "WHERE id=? ;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+
+            pst.setBoolean(1,alugado);
+            pst.setInt(2,id);
+
+            pst.execute();
+        }finally {
+            c.close();
+        }
+    }
+
+
+    public ArrayList<Disco> buscarTodosAlugados() throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnectionMysql();
+
+        try {
+            String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco " +
+                    "FROM locadora.discos " +
+                    "WHERE alugado is true ;";
 
             PreparedStatement pst = c.prepareStatement(sql);
 

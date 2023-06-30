@@ -13,13 +13,15 @@ public class Disco implements TaxaDisco {
     private LocalDateTime dataLancamento;
     private Locadora locadora;
     private ETipoDisco tipoDisco;
+    private boolean alugado;
 
     public Disco(){
-
+        this.alugado = false;
     }
 
     public Disco(int id) {
         this.id = id;
+        this.alugado = false;
     }
 
     public Disco(int id, String nome, Double valorDaLocacao, LocalDateTime dataLancamento, ETipoDisco tipoDisco) {
@@ -28,21 +30,24 @@ public class Disco implements TaxaDisco {
         this.valorDaLocacao = valorDaLocacao;
         this.dataLancamento = dataLancamento;
         this.tipoDisco = tipoDisco;
+        this.alugado = false;
     }
 
-    public Disco(int id, String nome, Double valorDaLocacao, LocalDateTime dataLancamento, ETipoDisco tipoDisco,Locadora locadora ) {
+    public Disco(int id, String nome, Double valorDaLocacao, LocalDateTime dataLancamento, ETipoDisco tipoDisco,Locadora locadora) {
         this.nome = nome;
         this.id = id;
         this.valorDaLocacao = valorDaLocacao;
         this.dataLancamento = dataLancamento;
         this.tipoDisco = tipoDisco;
         this.locadora = locadora;
+        this.alugado = false;
     }
 
     public Disco(int id, double valorDaLocacao, String nome) {
         this.id = id;
         this.valorDaLocacao = valorDaLocacao;
         this.nome = nome;
+        this.alugado = false;
     }
 
 
@@ -55,6 +60,14 @@ public class Disco implements TaxaDisco {
             return 3.77;
         }
         return 0;
+    }
+
+    public Boolean getAlugado() {
+        return alugado;
+    }
+
+    public void setAlugado(Boolean alugado) {
+        this.alugado = alugado;
     }
 
     public Locadora getLocadora() {

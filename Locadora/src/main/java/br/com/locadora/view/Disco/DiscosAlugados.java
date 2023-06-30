@@ -16,12 +16,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Ace
  */
-public class CatalogoDiscos extends javax.swing.JDialog {
+public class DiscosAlugados extends javax.swing.JDialog {
 
     /**
      * Creates new form CatalogoDiscos
      */
-    public CatalogoDiscos(java.awt.Frame parent, boolean modal) {
+    public DiscosAlugados(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -39,7 +39,7 @@ public class CatalogoDiscos extends javax.swing.JDialog {
         jtDisco2 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbClose = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jtfPesquisa = new javax.swing.JButton();
@@ -81,17 +81,17 @@ public class CatalogoDiscos extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
 
-        jButton1.setText("Reservar");
+        jButton1.setText("Devolver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("sair");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbClose.setText("Fechar");
+        jbClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbCloseActionPerformed(evt);
             }
         });
 
@@ -103,8 +103,8 @@ public class CatalogoDiscos extends javax.swing.JDialog {
                 .addGap(42, 42, 42)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(58, 58, 58))
+                .addComponent(jbClose)
+                .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +112,7 @@ public class CatalogoDiscos extends javax.swing.JDialog {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jbClose))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -169,7 +169,7 @@ public class CatalogoDiscos extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(0, 153, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
-        jLabel1.setText("Reserva");
+        jLabel1.setText("Alugados");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -228,9 +228,9 @@ public class CatalogoDiscos extends javax.swing.JDialog {
 
             try {
                 
-                new DiscoDAO().atualizarAlugados(allDisc.get(row).getId(),true);
+                new DiscoDAO().atualizarAlugados(allDisc.get(row).getId(),false);
 
-                JOptionPane.showMessageDialog(null, "Disco Reservado Com sucesso!");
+                JOptionPane.showMessageDialog(null, "Disco Devolvido Com sucesso!");
                 
                  formWindowOpened(null);
                 
@@ -260,7 +260,7 @@ public class CatalogoDiscos extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
        try {
-            allDisc = new DiscoDAO().buscarTodosDisponiveis();
+            allDisc = new DiscoDAO().buscarTodosAlugados();
 
             preencheTable(allDisc);
             
@@ -269,9 +269,11 @@ public class CatalogoDiscos extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formWindowOpened
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       CatalogoDiscos.this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jbCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCloseActionPerformed
+   
+    DiscosAlugados.this.dispose();
+       
+    }//GEN-LAST:event_jbCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,20 +292,21 @@ public class CatalogoDiscos extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CatalogoDiscos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DiscosAlugados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CatalogoDiscos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DiscosAlugados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CatalogoDiscos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DiscosAlugados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CatalogoDiscos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DiscosAlugados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CatalogoDiscos dialog = new CatalogoDiscos(new javax.swing.JFrame(), true);
+                DiscosAlugados dialog = new DiscosAlugados(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -317,13 +320,13 @@ public class CatalogoDiscos extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbClose;
     private javax.swing.JTable jtDisco2;
     private javax.swing.JButton jtfPesquisa;
     private javax.swing.JTextField jtfSearch;

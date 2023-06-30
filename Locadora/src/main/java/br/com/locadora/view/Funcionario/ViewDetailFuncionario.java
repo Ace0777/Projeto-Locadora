@@ -9,6 +9,7 @@ import br.com.locadora.model.locadora.Locadora;
 import br.com.locadora.model.usuario.Funcionario;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 /**
@@ -261,7 +262,7 @@ public class ViewDetailFuncionario extends javax.swing.JDialog {
                     jtfSenha.getText(),
                     0,
                     2500,
-                    LocalDateTime.now(),
+                    LocalDateTime.parse("jtfEntrada",DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     LocalDateTime.now(), 
                     new Locadora(1));
 
