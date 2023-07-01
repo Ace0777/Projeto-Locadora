@@ -66,6 +66,7 @@ public class Principal extends javax.swing.JFrame {
         jmCatalogo = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jmRelatorio = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -290,6 +291,19 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jmCatalogo);
 
+        jmRelatorio.setText("Relatorio");
+        jmRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmRelatorioMouseClicked(evt);
+            }
+        });
+        jmRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmRelatorioActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jmRelatorio);
+
         jMenu3.setBackground(new java.awt.Color(204, 0, 0));
         jMenu3.setText("Sair");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -348,6 +362,7 @@ public class Principal extends javax.swing.JFrame {
            jmCadastro.setVisible(false);
            jmCliente.setVisible(false);
            jmFuncionario.setVisible(false);
+           jmRelatorio.setVisible(false);
            
         }else if (login.getUser() instanceof Funcionario){
             jmCatalogo.setVisible(false);
@@ -409,6 +424,18 @@ public class Principal extends javax.swing.JFrame {
         
         fun.setVisible(true);
     }//GEN-LAST:event_jmFuncionarioActionPerformed
+
+    private void jmRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRelatorioActionPerformed
+       ViewRelatorio fun = new ViewRelatorio(this, true);
+        
+        fun.setVisible(true);
+    }//GEN-LAST:event_jmRelatorioActionPerformed
+
+    private void jmRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmRelatorioMouseClicked
+        ViewRelatorio fun = new ViewRelatorio(this, true);
+        
+        fun.setVisible(true);
+    }//GEN-LAST:event_jmRelatorioMouseClicked
 
     /**
      * @param args the command line arguments
@@ -474,6 +501,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmCliente;
     private javax.swing.JMenuItem jmFuncionario;
     private javax.swing.JMenu jmPesquisa;
+    private javax.swing.JMenu jmRelatorio;
     private javax.swing.JLabel lblUsario;
     // End of variables declaration//GEN-END:variables
 
