@@ -222,7 +222,7 @@ public class ViewDetailDisco extends javax.swing.JDialog {
         try {
             Disco disc = new Disco(0,
                     jtfNome.getText(),
-                    Double.valueOf(jftPreco.getText()),
+                    Double.parseDouble(jftPreco.getText()),
                     LocalDateTime.now(),
                     (ETipoDisco) jTipoCd.getSelectedItem());
 
@@ -243,6 +243,7 @@ public class ViewDetailDisco extends javax.swing.JDialog {
             setVisible(false);
 
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e.getMessage());
             JOptionPane.showMessageDialog(null, "dados incorretos");
         }
     }//GEN-LAST:event_jButton1ActionPerformed

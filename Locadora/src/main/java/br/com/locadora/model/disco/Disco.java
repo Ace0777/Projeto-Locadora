@@ -13,15 +13,15 @@ public class Disco implements TaxaDisco {
     private LocalDateTime dataLancamento;
     private Locadora locadora;
     private ETipoDisco tipoDisco;
-    private boolean alugado;
+    private int alugado;
 
     public Disco(){
-        this.alugado = false;
+        this.alugado = 0;
     }
 
     public Disco(int id) {
         this.id = id;
-        this.alugado = false;
+        this.alugado = 0;
     }
 
     public Disco(int id, String nome, Double valorDaLocacao, LocalDateTime dataLancamento, ETipoDisco tipoDisco) {
@@ -30,7 +30,7 @@ public class Disco implements TaxaDisco {
         this.valorDaLocacao = valorDaLocacao;
         this.dataLancamento = dataLancamento;
         this.tipoDisco = tipoDisco;
-        this.alugado = false;
+        this.alugado = 0;
     }
 
     public Disco(int id, String nome, Double valorDaLocacao, LocalDateTime dataLancamento, ETipoDisco tipoDisco,Locadora locadora) {
@@ -40,14 +40,14 @@ public class Disco implements TaxaDisco {
         this.dataLancamento = dataLancamento;
         this.tipoDisco = tipoDisco;
         this.locadora = locadora;
-        this.alugado = false;
+        this.alugado = 0;
     }
 
     public Disco(int id, double valorDaLocacao, String nome) {
         this.id = id;
         this.valorDaLocacao = valorDaLocacao;
         this.nome = nome;
-        this.alugado = false;
+        this.alugado = 0;
     }
 
 
@@ -55,18 +55,18 @@ public class Disco implements TaxaDisco {
         if(tipoDisco == ETipoDisco.musica){
             return 2.75;
         } else if (tipoDisco == ETipoDisco.filme) {
-           return  1.43;
+            return  1.43;
         }else if (tipoDisco == ETipoDisco.jogo){
             return 3.77;
         }
         return 0;
     }
 
-    public Boolean getAlugado() {
+    public int getAlugado() {
         return alugado;
     }
 
-    public void setAlugado(Boolean alugado) {
+    public void setAlugado(int alugado) {
         this.alugado = alugado;
     }
 

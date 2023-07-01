@@ -42,8 +42,8 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
 
         try {
             String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco  " +
-            "FROM locadora.discos " +
-            "WHERE id = ?;";
+                    "FROM locadora.discos " +
+                    "WHERE id = ?;";
 
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setInt(1, key);
@@ -151,7 +151,7 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
 
         try {
             String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco " +
-            "FROM locadora.discos;";
+                    "FROM locadora.discos;";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
@@ -170,7 +170,7 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
         try {
             String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco " +
                     "FROM locadora.discos " +
-                    "WHERE alugado is false ;";
+                    "WHERE alugado = 0 ;";
 
             PreparedStatement pst = c.prepareStatement(sql);
 
@@ -183,7 +183,7 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
         }
     }
 
-    public void atualizarAlugados (Integer id, boolean alugado) throws SQLException, ClassNotFoundException{
+    public void atualizarAlugados (Integer id, int alugado) throws SQLException, ClassNotFoundException{
 
         Connection c = ConnectionFactory.getConnectionMysql();
 
@@ -194,7 +194,7 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
 
             PreparedStatement pst = c.prepareStatement(sql);
 
-            pst.setBoolean(1,alugado);
+            pst.setInt(1,alugado);
             pst.setInt(2,id);
 
             pst.execute();
@@ -204,15 +204,16 @@ public class DiscoDAO implements IGenericDAO<Disco,Integer> {
     }
 
 
-    public ArrayList<Disco> buscarTodosAlugados() throws SQLException, ClassNotFoundException {
+    public ArrayList<Disco> buscarTodosAlugados(int id) throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnectionMysql();
 
         try {
             String sql = "SELECT id, nome, valorDaLocacao, dataLancamento, tipoDisco " +
                     "FROM locadora.discos " +
-                    "WHERE alugado is true ;";
+                    "WHERE alugado = ? ;";
 
             PreparedStatement pst = c.prepareStatement(sql);
+            pst.setInt(1,id);
 
             ResultSet resultado = pst.executeQuery();
 

@@ -33,6 +33,10 @@ public class Cliente extends Usuario {
         this.telefone = telefone;
     }
 
+    public Cliente(String nome, int id){
+        super(nome,null,null,null,id);
+    }
+
 
     public Cliente(int id, String nome) {
         super(nome,null,null,null,id);
