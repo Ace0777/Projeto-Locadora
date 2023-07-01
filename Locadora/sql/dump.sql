@@ -18,7 +18,6 @@
 --
 -- Table structure for table `clientes`
 --
-
 CREATE DATABASE IF NOT EXISTS locadora;
 
 USE locadora;
@@ -35,9 +34,8 @@ CREATE TABLE `clientes` (
   `login` varchar(100) NOT NULL,
   `senha` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `clientes_FK` (`idLocadora`),
-  CONSTRAINT `clientes_FK` FOREIGN KEY (`idLocadora`) REFERENCES `locadoras` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `clientes_FK` (`idLocadora`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +44,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'ASA','123',1,'bruno','',''),(2,'luis','123',1,'narigudo','luis','luis'),(3,'luis','123',1,'iago','',''),(4,'luis','luis',1,'nikao','luis','luis'),(5,'020.232.80.9','32988002696',1,'Daves ','daves','123'),(6,'020.232.80s.9','3298800s2696',1,'Davesss ','davesss','1s23');
+INSERT INTO `clientes` VALUES (17,'3213','23123',1,'luis','teste1','123'),(18,'21321','3213',1,'daves','teste2','123');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,8 +61,9 @@ CREATE TABLE `discos` (
   `valorDaLocacao` double DEFAULT NULL,
   `dataLancamento` datetime DEFAULT NULL,
   `tipoDisco` enum('filme','musica','jogo') NOT NULL,
+  `alugado` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +72,7 @@ CREATE TABLE `discos` (
 
 LOCK TABLES `discos` WRITE;
 /*!40000 ALTER TABLE `discos` DISABLE KEYS */;
-INSERT INTO `discos` VALUES (1,'iago',303.77,'2023-06-26 00:00:00','jogo'),(3,'Luis',3.7299999999999995,'2023-06-26 00:00:00','filme'),(4,'Luis',3.7299999999999995,'2023-06-26 00:00:00','filme');
+INSERT INTO `discos` VALUES (35,'disco1',136.29000000000002,'2023-06-30 00:00:00','filme',17),(36,'disco2',123232.43,'2023-06-30 00:00:00','filme',18);
 /*!40000 ALTER TABLE `discos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +95,7 @@ CREATE TABLE `funcionarios` (
   PRIMARY KEY (`id`),
   KEY `funcionarios_FK` (`idLocadora`),
   CONSTRAINT `funcionarios_FK` FOREIGN KEY (`idLocadora`) REFERENCES `locadoras` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +104,7 @@ CREATE TABLE `funcionarios` (
 
 LOCK TABLES `funcionarios` WRITE;
 /*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
-INSERT INTO `funcionarios` VALUES (1,'2023-06-26 08:13:51','2023-06-26 08:13:51',200,1,'iago','',''),(2,'2020-05-01 09:13:00','2020-05-01 09:13:00',2000,1,'bruno','',''),(4,'2023-06-26 07:56:03','2023-06-26 07:56:03',200,1,'luis','',''),(5,'2023-06-27 07:29:06','2023-06-27 07:29:06',200,1,'narigudo','l','123');
+INSERT INTO `funcionarios` VALUES (1,'2023-06-26 08:13:51','2023-06-26 08:13:51',200,1,'iago','teste','123'),(28,'2023-06-30 06:59:29','2023-06-30 06:59:29',2500,1,'teste2','adsad','asdsad'),(31,'2023-06-29 04:12:14','2023-06-29 04:12:14',2500,1,'mudando','asdsad','asdsad'),(34,'2023-06-30 11:37:29','2023-06-30 11:37:29',2500,1,'cleiton_franguinho123','frango123','123'),(36,'2023-06-30 06:59:40','2023-06-30 06:59:40',2500,1,'321321','123213','123213');
 /*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +141,6 @@ CREATE TABLE `locacaos` (
 
 LOCK TABLES `locacaos` WRITE;
 /*!40000 ALTER TABLE `locacaos` DISABLE KEYS */;
-INSERT INTO `locacaos` VALUES (4,1,1,1,'2023-06-26 00:00:00','2023-06-26 00:00:00',1),(5,1,1,1,'2023-06-26 00:00:00','2023-06-26 00:00:00',1);
 /*!40000 ALTER TABLE `locacaos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,10 +163,7 @@ CREATE TABLE `locadoras` (
 -- Dumping data for table `locadoras`
 --
 
-LOCK TABLES `locadoras` WRITE;
-/*!40000 ALTER TABLE `locadoras` DISABLE KEYS */;
 INSERT INTO `locadoras` VALUES (1,'rua paula lima','Daves');
-/*!40000 ALTER TABLE `locadoras` ENABLE KEYS */;
 UNLOCK TABLES;
 
 INSERT INTO locadora.clientes
@@ -193,4 +188,4 @@ VALUES('2023-06-27 20:17:58', '2023-06-27 20:18:02', 1200.0, 1, 'Luis', 'luis', 
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-27 20:15:27
+-- Dump completed on 2023-06-30 21:44:27
